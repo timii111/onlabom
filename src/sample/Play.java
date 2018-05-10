@@ -1,6 +1,5 @@
 package sample;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,6 +11,8 @@ public class Play {
     //TODO
     public Board actualBoard;
     private Player actualPlayer;
+
+    private Robot myRobot;
 
     private FileReader fr;
     private BufferedReader br;
@@ -40,6 +41,15 @@ public class Play {
         //actualBoard.draw();
     }
 
+    public boolean watch(){
+
+        actualPlayer.setAttempt();
+        boolean b = myRobot.move();
+
+        //Todo jó értéket visszaadni, validálni
+        return false;
+    }
+
     public void loadNextStage(){
         fileName = "Board_" + gameNumber + ".txt";
         try{
@@ -55,7 +65,6 @@ public class Play {
         }catch (IOException e){
             e.printStackTrace();
         }
-
 
     }
 }

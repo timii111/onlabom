@@ -1,10 +1,5 @@
 package sample;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-
-
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,25 +41,22 @@ public class Board {
 
     }
 
+    //TODO rendes grafikus megjelenítés
     public String draw(){
-            String mystring = "";
-           /* try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
-                Parent root = loader.load();
-                TextArea mytxtarea = (TextArea) loader.getNamespace().get("txtarea");*/
 
-                for (int i = 0; i < width; i++) {
-                    for (int j = 0; j < height; j++) {
-                        mystring = board[j][i].draw(mystring);
-                    }
-                    mystring+="\n";
-                }
-           /*     mytxtarea.setText(mystring);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-            //txtarea.setText(mystring);
-            return mystring;
+
+
+        String mystring = "";
+
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                mystring = board[j][i].draw(mystring);
+            }
+            mystring+="\n";
+        }
+
+        return mystring;
     }
 
 }

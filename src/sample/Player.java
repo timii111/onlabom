@@ -11,4 +11,7 @@ public class Player {
         attempt = 0;
     }
 
+    public void setAttempt(){
+        attempt++;
+    }
 }
