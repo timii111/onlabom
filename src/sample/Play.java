@@ -12,39 +12,44 @@ public class Play {
     public Board actualBoard;
     private Player actualPlayer;
 
-    private Robot myRobot;
-
     private FileReader fr;
     private BufferedReader br;
     private String fileName;
-    private String line;
-    private String[] splittedLine;
 
     private static Play ourInstance;
 
+    private Robot myRobot;
+
     public static Play getInstance() {
-        if(ourInstance==null){
-            return new Play();
-        }else {
-            return ourInstance;
+        if(ourInstance==null) {
+            ourInstance = new Play();
         }
+        return ourInstance;
+    }
+
+    public Robot getMyRobot(){
+        return myRobot;
+    }
+
+    public Board getMyBoard(){
+        return actualBoard;
     }
 
     private Play() {
         actualPlayer = new Player();
-
+        loadNextStage();
 
     }
 
-    public void start(){
+    public String[][] start(){
         loadNextStage();
-        //actualBoard.draw();
+        return actualBoard.draw();
     }
 
     public boolean watch(){
 
         actualPlayer.setAttempt();
-        boolean b = myRobot.move();
+        boolean b = actualBoard.play();
 
         //Todo jó értéket visszaadni, validálni
         return false;
@@ -57,6 +62,7 @@ public class Play {
             br = new BufferedReader(fr);
 
             actualBoard = new Board(br);
+            myRobot = actualBoard.getRobot();
 
             br.close();
             fr.close();

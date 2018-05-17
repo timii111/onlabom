@@ -1,6 +1,5 @@
 package sample;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -14,10 +13,6 @@ public class Board {
 
     private String[] splittedLine;
 
-    private TextArea txtarea;
-
-    public String str =":)";
-
     public Board(BufferedReader br){
         try{
             splittedLine = br.readLine().split(" ");
@@ -25,10 +20,10 @@ public class Board {
             width = Integer.parseInt(splittedLine[1]);
             board = new BoardTile[height][width];
 
-            for(int i=0; i<width;i++){
-                for(int j=0; j<height;j++){
+            for(int i=0; i<height;i++){
+                for(int j=0; j<width;j++){
                     splittedLine = br.readLine().split(" ");
-                    board[j][i] = new BoardTile(splittedLine);
+                    board[i][j] = new BoardTile(splittedLine);
                 }
             }
 
@@ -38,25 +33,43 @@ public class Board {
             e.printStackTrace();
         }
 
+    }
+
+    public Robot getRobot() {
+        return robot;
+    }
+
+    public int getHeight(){
+        return height;
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+    public boolean play(){
+
+        return robot.move();
 
     }
 
     //TODO rendes grafikus megjelenítés
-    public String draw(){
+    public String[][] draw(){
 
-
-
-        String mystring = "";
-
+        String[][] images = new String[height][width];
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                mystring = board[j][i].draw(mystring);
+                images[j][i] = board[j][i].draw();
             }
-            mystring+="\n";
         }
 
-        return mystring;
+        return images;
+
+    }
+
+    public String getTileType(int x, int y){
+        return board[y][x].draw();
     }
 
 }

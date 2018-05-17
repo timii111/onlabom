@@ -4,6 +4,7 @@ public enum TileType {
 
     PATH,
     WATER,
-    BUTTON
+    BUTTON,
+    END
 
 }

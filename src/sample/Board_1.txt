@@ -1,27 +1,27 @@
 5 5
-ut
-viz
-ut
-ut
-ut
-ut
-viz
-ut
-viz
-ut
-ut
-viz
-cel
-viz
-ut kulcs lila
-ut
-viz
-viz
-viz
-ut
-ut
-ut gomb lila
-ut
-ut
-ut
+PATH
+WATER
+PATH
+PATH
+PATH
+PATH
+WATER
+PATH
+WATER
+PATH
+PATH
+WATER
+END
+WATER
+PATH KEY PURPLE
+PATH
+WATER
+WATER
+WATER
+PATH
+PATH
+PATH BUTTON PURPLE
+PATH
+PATH
+PATH
 1 1
