@@ -13,10 +13,11 @@
     <children>
         <Label text="Juttasd el a robotot a célba!" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="3"/>
         <TextArea fx:id="txtarea" prefHeight="300" prefWidth="250" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" minHeight="250" minWidth="150"/>
-        <Button text="Indít" GridPane.columnIndex="3" GridPane.rowIndex="2" onAction="#printIt" />
-        <Button text="Töröl" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#deleteAll" />
-        <Button text="Újra" GridPane.columnIndex="2" GridPane.rowIndex="2" onAction="#reloadIt" />
+        <Button text="Indít" GridPane.columnIndex="3" GridPane.rowIndex="2" onAction="#printIt" fx:id="startBtn"/>
+        <Button text="Töröl" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#deleteAll" fx:id="clearBtn"/>
+        <Button text="Újra" GridPane.columnIndex="2" GridPane.rowIndex="2" onAction="#reloadIt" fx:id="againBtn"/>
         <Canvas fx:id="canvas" GridPane.rowIndex="1" GridPane.columnIndex="4" height="500" width="500" GridPane.rowSpan="2" />
+        <Label fx:id="messageLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" prefHeight="30" prefWidth="500" GridPane.columnSpan="4" />
 
 
     </children>

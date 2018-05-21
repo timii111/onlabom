@@ -1,4 +1,6 @@
 5 5
+1 1
+1
 ut
 viz
 ut
@@ -24,4 +26,3 @@ ut gomb lila
 ut
 ut
 ut
-1 1

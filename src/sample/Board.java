@@ -9,12 +9,14 @@ public class Board {
     private int height;
     private int width;
 
-    private Robot robot;
+    private int numberOfObjects;
 
     private String[] splittedLine;
 
     public Board(BufferedReader br){
         try{
+            splittedLine = br.readLine().split(" ");
+            numberOfObjects = Integer.parseInt(splittedLine[0]);
             splittedLine = br.readLine().split(" ");
             height = Integer.parseInt(splittedLine[0]);
             width = Integer.parseInt(splittedLine[1]);
@@ -26,17 +28,10 @@ public class Board {
                     board[i][j] = new BoardTile(splittedLine);
                 }
             }
-
-            splittedLine = br.readLine().split(" ");
-            robot = new Robot(splittedLine);
         }catch(IOException e){
             e.printStackTrace();
         }
 
-    }
-
-    public Robot getRobot() {
-        return robot;
     }
 
     public int getHeight(){
@@ -45,12 +40,6 @@ public class Board {
 
     public int getWidth(){
         return width;
-    }
-
-    public boolean play(){
-
-        return robot.move();
-
     }
 
     //TODO rendes grafikus megjelenítés
@@ -72,4 +61,15 @@ public class Board {
         return board[y][x].draw();
     }
 
+    public TileType getTileType(Coords c){
+        return board[c.getY()][c.getX()].getType();
+    }
+
+    public int getNumberOfObjects() {
+        return numberOfObjects;
+    }
+
+    public BoardTile getTile(Coords c){
+        return board[c.getY()][c.getX()];
+    }
 }

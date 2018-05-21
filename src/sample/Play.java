@@ -8,8 +8,7 @@ import java.io.IOException;
 public class Play {
 
     private int gameNumber = 1;
-    //TODO
-    public Board actualBoard;
+    private Board actualBoard;
     private Player actualPlayer;
 
     private FileReader fr;
@@ -46,23 +45,14 @@ public class Play {
         return actualBoard.draw();
     }
 
-    public boolean watch(){
-
-        actualPlayer.setAttempt();
-        boolean b = actualBoard.play();
-
-        //Todo jó értéket visszaadni, validálni
-        return false;
-    }
-
     public void loadNextStage(){
         fileName = "Board_" + gameNumber + ".txt";
         try{
             fr = new FileReader(fileName);
             br = new BufferedReader(fr);
 
-            actualBoard = new Board(br);
-            myRobot = actualBoard.getRobot();
+            myRobot = new Robot(br);
+            actualBoard = myRobot.getMyBoard();
 
             br.close();
             fr.close();

@@ -48,4 +48,24 @@ public class BoardTile {
         return imagePath;
 
     }
+
+    public TileType getType() {
+        return type;
+    }
+
+    public ColorType push(){
+        return buttonColor;
+    }
+
+    public ColorType getKeyColor() {
+        return keyColor;
+    }
+
+    public void setHasKey(boolean hasKey) {
+        this.hasKey = hasKey;
+    }
+
+    public void eat(){
+        setHasKey(false);
+    }
 }
