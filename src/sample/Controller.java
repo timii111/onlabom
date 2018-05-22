@@ -47,6 +47,7 @@ public class Controller implements Initializable {
 
     public int tileSize = 80;
 
+
     @FXML
     public void printIt() {
 
@@ -153,31 +154,29 @@ public class Controller implements Initializable {
 
     }
 
-    public void go() {
+    public boolean go() {
         switch (myRobot.getMyDirection()) {
             case RIGHT:
-                goRight();
-                break;
+                return goRight();
             case LEFT:
-                goLeft();
-                break;
+                return goLeft();
             case UP:
-                goUp();
-                break;
+                return goUp();
             case DOWN:
-                goDown();
-                break;
+                return goDown();
         }
+        return false;
     }
 
-    public void goRight() {
+    public boolean goRight() {
         reDrawTile();
-        if (myRobot.goRight()) {
+        boolean b = myRobot.goRight();
+        if (b) {
             drawRobot();
         } else {
             somethingWentWrong();
         }
-
+        return b;
     }
 
     private void invalidInput() {
@@ -186,33 +185,40 @@ public class Controller implements Initializable {
 
     private void somethingWentWrong() {
         messageLabel.setText("Valamit elrontottál, próbáld újra!");
+        //TODO
     }
 
-    public void goDown() {
+    public boolean goDown() {
         reDrawTile();
-        if (myRobot.goDown()) {
+        boolean b = myRobot.goDown();
+        if (b) {
             drawRobot();
         } else {
             somethingWentWrong();
         }
+        return b;
     }
 
-    public void goUp() {
+    public boolean goUp() {
         reDrawTile();
-        if (myRobot.goUp()) {
+        boolean b = myRobot.goUp();
+        if (b) {
             drawRobot();
         } else {
             somethingWentWrong();
         }
+        return b;
     }
 
-    public void goLeft() {
+    public boolean goLeft() {
         reDrawTile();
-        if (myRobot.goLeft()) {
+        boolean b = myRobot.goLeft();
+        if (b) {
             drawRobot();
         } else {
             somethingWentWrong();
         }
+        return b;
     }
 
     public void turnRight() {
@@ -234,7 +240,7 @@ public class Controller implements Initializable {
             if(myBoard.getTile(myRobot.getActualPosition()).getType()==TileType.END){
                 messageLabel.setText("Gratula, ügyi voltál! :)");
             } else{
-                messageLabel.setText("Már majdnem kész vagy, lépj a célba!");
+                messageLabel.setText(messageLabel.getText() + "Már majdnem kész vagy, de a célban kell befejezned!");
             }
         } else {
             messageLabel.setText(messageLabel.getText() + " Nem sikerült mindent összeszedni, nem teljesítetted a pályát. :(");
@@ -259,5 +265,11 @@ public class Controller implements Initializable {
         }
         reDrawTile();
         drawRobot();
+    }
+
+    public void erroring() {
+        //TODO
+        messageLabel.setText("hiba csúszott a rendszerbe");
+
     }
 }

@@ -1,7 +1,6 @@
 // Generated from C:/Users/Timi/IdeaProjects/onlabom/src/sample\nyelv.g4 by ANTLR 4.7
 package sample.sample;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
-import sample.sample.nyelvParser;
 
 /**
  * This interface defines a complete listener for a parse tree produced by
@@ -158,5 +157,4 @@ public interface nyelvListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitColor(nyelvParser.ColorContext ctx);
-
 }

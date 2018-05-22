@@ -1,6 +1,5 @@
 grammar nyelv;
 
-//TODO: akarok e bele feltételt? akkor kellenek még műveletek
 program: commandlines*;
 
 commandlines: (command | structure)+ ;

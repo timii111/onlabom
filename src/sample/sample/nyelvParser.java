@@ -1,9 +1,14 @@
 // Generated from C:/Users/Timi/IdeaProjects/onlabom/src/sample\nyelv.g4 by ANTLR 4.7
 package sample.sample;
-import org.antlr.v4.runtime.atn.*;
-import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
+import org.antlr.v4.runtime.atn.ATN;
+import org.antlr.v4.runtime.atn.ATNDeserializer;
+import org.antlr.v4.runtime.atn.ParserATNSimulator;
+import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
+import org.antlr.v4.runtime.tree.ParseTreeVisitor;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.List;
 
@@ -102,7 +107,7 @@ public class nyelvParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_program; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof nyelvListener) ((nyelvListener)listener).enterProgram(this);
+			if ( listener instanceof nyelvListener ) ((nyelvListener)listener).enterProgram(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
@@ -110,7 +115,7 @@ public class nyelvParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof nyelvVisitor) return ((nyelvVisitor<? extends T>)visitor).visitProgram(this);
+			if ( visitor instanceof nyelvVisitor ) return ((nyelvVisitor<? extends T>)visitor).visitProgram(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -664,7 +669,6 @@ public class nyelvParser extends Parser {
 	public final GoThereContext goThere() throws RecognitionException {
 		GoThereContext _localctx = new GoThereContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_goThere);
-
 		try {
 			enterOuterAlt(_localctx, 1);
 			{

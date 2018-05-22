@@ -107,6 +107,7 @@ public class Robot {
         actualPosition.setX(startPosition.getX());
         actualPosition.setY(startPosition.getY());
         myDirection = Direction.DOWN;
+        color = ColorType.NONE;
     }
 
 }

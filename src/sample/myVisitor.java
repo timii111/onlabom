@@ -1,19 +1,23 @@
 package sample;
 
+
 import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.TerminalNode;
 import sample.sample.nyelvBaseVisitor;
 import sample.sample.nyelvParser;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class myVisitor extends nyelvBaseVisitor<Object> {
 
     private Controller mycontroller;
+    private List<Boolean> ifs = new ArrayList<Boolean>();
+    private int countonif;
 
     public myVisitor(Controller ctrl){
 
         mycontroller = ctrl;
+        countonif = -1;
     }
 
     @Override
@@ -41,29 +45,52 @@ public class myVisitor extends nyelvBaseVisitor<Object> {
     @Override
     public Object visitBranch(nyelvParser.BranchContext ctx) {
 
-        visitChildren(ctx);
+        boolean b = (Boolean) visit(ctx.getChild(2));
+        int i=ctx.getChildCount();
+
+        if(b){ //feltétel igaz
+            visit(ctx.getChild(6));
+        }else if(i==9){ //feltétel nem igaz, ha van else ág, mehet az
+            ifs.add(true);
+            countonif++;
+            visit(ctx.getChild(8));
+            ifs.set(countonif,false);
+            countonif--;
+        }
+
         return null;
     }
 
     @Override
     public Object visitElseStatement(nyelvParser.ElseStatementContext ctx) {
-
-        visitChildren(ctx);
+        if(countonif > -1 && ifs.get(countonif)){
+            visitChildren(ctx);
+        }
         return null;
     }
 
     @Override
     public Object visitCycle(nyelvParser.CycleContext ctx) {
+        try{
+            String tmp = ctx.getChild(ctx.getChildCount()-2).toString();
+            int db = Integer.parseInt(tmp);
+            for(int i=0; i<db;i++){
+                visitChildren(ctx);
+            }
+        }catch (NumberFormatException e){
+            mycontroller.invalidInputSignaling();
+        }
 
-        visitChildren(ctx);
         return null;
     }
 
     @Override
     public Object visitEquality(nyelvParser.EqualityContext ctx) {
 
-        visitChildren(ctx);
-        return null;
+        Object o1 = visit(ctx.getChild(0));
+        Object o2 = visit(ctx.getChild(2));
+
+        return o1.equals(o2);
     }
 
     @Override
@@ -79,9 +106,9 @@ public class myVisitor extends nyelvBaseVisitor<Object> {
         String tmp = ctx.getChild(2).getText();
         try{
             int db = Integer.parseInt(ctx.getChild(2).getText());
-            for(int i=0; i<db;i++){
-                mycontroller.go();
-            }
+            int i=0;
+            while (i<db && mycontroller.go()) i++;
+
         }catch(NumberFormatException e){
             mycontroller.invalidInputSignaling();
         }
@@ -104,7 +131,7 @@ public class myVisitor extends nyelvBaseVisitor<Object> {
 
     @Override
     public Object visitGetColor(nyelvParser.GetColorContext ctx) {
-        return mycontroller.getRobotColor();
+        return mycontroller.getRobotColor().toString().toLowerCase();
     }
 
     @Override
@@ -139,27 +166,20 @@ public class myVisitor extends nyelvBaseVisitor<Object> {
         return null;
     }
 
+
+
     @Override
     public Object visitColor(nyelvParser.ColorContext ctx) {
 
-        return null;
-    }
-
-    @Override
-    public Object visit(ParseTree parseTree) {
-
-        return null;
-    }
-
-    @Override
-    public Object visitTerminal(TerminalNode terminalNode) {
-
-        return null;
+        //TODO értelmesen a színekhez igazítani
+        if(ctx.YELLOW()!=null) return "yellow";
+        else return null;
     }
 
     @Override
     public Object visitErrorNode(ErrorNode errorNode) {
-
+        //TODO ?
+        mycontroller.erroring();
         return null;
     }
 }
