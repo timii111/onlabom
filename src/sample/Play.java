@@ -1,13 +1,15 @@
 package sample;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import sample.models.Board;
+import sample.models.Player;
+import sample.models.Robot;
+
+import java.io.*;
 
 public class Play {
 
     private int gameNumber = 1;
+    private int maxGameNumber = 3;
     private Board actualBoard;
     private Player actualPlayer;
 
@@ -46,10 +48,11 @@ public class Play {
     }
 
     public void loadNextStage(){
-        fileName = "Board_" + gameNumber + ".txt";
+        fileName = "sample/boards/Board_" + gameNumber + ".txt";
         try{
-            fr = new FileReader(fileName);
-            br = new BufferedReader(fr);
+            //fr = new FileReader(fileName);
+            InputStream fr = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
+            br = new BufferedReader(new InputStreamReader(fr));
 
             myRobot = new Robot(br);
             actualBoard = myRobot.getMyBoard();
@@ -62,5 +65,14 @@ public class Play {
             e.printStackTrace();
         }
 
+    }
+
+    public boolean next(){
+        if(gameNumber==maxGameNumber) return false;
+        else{
+            gameNumber++;
+            loadNextStage();
+            return true;
+        }
     }
 }

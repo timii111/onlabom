@@ -1,4 +1,4 @@
-package sample;
+package sample.enums;
 
 public enum ColorType {
     NONE,

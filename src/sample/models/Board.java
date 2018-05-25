@@ -1,4 +1,6 @@
-package sample;
+package sample.models;
+
+import sample.enums.TileType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -71,5 +73,15 @@ public class Board {
 
     public BoardTile getTile(Coords c){
         return board[c.getY()][c.getX()];
+    }
+
+    public void setTile(BoardTile b, Coords c){
+        board[c.getY()][c.getX()] = b;
+    }
+
+    public void eat(Coords c){
+        BoardTile tmp = getTile(c);
+        tmp.eat();
+        setTile(tmp,c);
     }
 }

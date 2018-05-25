@@ -1,4 +1,7 @@
-package sample;
+package sample.models;
+
+import sample.enums.ColorType;
+import sample.enums.TileType;
 
 public class BoardTile {
 

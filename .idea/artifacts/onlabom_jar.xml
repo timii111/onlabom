@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="onlabom:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/onlabom_jar</output-path>
-    <root id="archive" name="onlabom.jar">
-      <element id="module-output" name="onlabom" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/src/sample/antlr-runtime-4.7.1.jar" path-in-jar="/" />
-    </root>
-  </artifact>
-</component>

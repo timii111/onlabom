@@ -13,12 +13,19 @@ import javafx.scene.transform.Affine;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import sample.sample.nyelvLexer;
-import sample.sample.nyelvParser;
+import sample.antlrelements.MyLanguageLexer;
+import sample.antlrelements.MyLanguageParser;
+import sample.enums.ColorType;
+import sample.enums.TileType;
+import sample.models.Board;
+import sample.models.Robot;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ *
+ */
 public class Controller implements Initializable {
     @FXML
     private TextArea txtarea;
@@ -57,9 +64,9 @@ public class Controller implements Initializable {
         txtarea.setDisable(true);
 
         CodePointCharStream mystream = CharStreams.fromString(txtarea.getText());
-        nyelvLexer mylexer = new nyelvLexer(mystream);
+        MyLanguageLexer mylexer = new MyLanguageLexer(mystream);
         CommonTokenStream tokstr = new CommonTokenStream(mylexer);
-        nyelvParser myparser = new nyelvParser(tokstr);
+        MyLanguageParser myparser = new MyLanguageParser(tokstr);
 
         myVisitor mv = new myVisitor(this);
         mv.visitProgram(myparser.program());
@@ -86,14 +93,17 @@ public class Controller implements Initializable {
 
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
+    public void start(){
         myRobot = Play.getInstance().getMyRobot();
         myBoard = Play.getInstance().getMyBoard();
         loadImages();
         objectsEaten = 0;
-
+        reloadIt();
+        txtarea.setText("");
+    }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        start();
     }
 
     public void deleteAll(ActionEvent actionEvent) {
@@ -104,10 +114,10 @@ public class Controller implements Initializable {
         int x = myRobot.getActualPosition().getX();
         int y = myRobot.getActualPosition().getY();
 
-        gc.clearRect(x * tileSize, y * tileSize, tileSize, tileSize);
+        gc.clearRect(x * tileSize+1, y * tileSize+1, tileSize-1, tileSize-1);
 
         Image im = new Image(myBoard.getTileType(x, y));
-        gc.drawImage(im, x * tileSize, y * tileSize, tileSize, tileSize);
+        gc.drawImage(im, x * tileSize, y * tileSize, tileSize, tileSize); //-1 az elcsúszás kezelésére
 
     }
 
@@ -237,13 +247,21 @@ public class Controller implements Initializable {
         if (objectsEaten == myBoard.getNumberOfObjects()) {
             //TODO rendes siker -> szintléptetés és vége ha nincs több
 
-            if(myBoard.getTile(myRobot.getActualPosition()).getType()==TileType.END){
-                messageLabel.setText("Gratula, ügyi voltál! :)");
+            if(myBoard.getTile(myRobot.getActualPosition()).getType()== TileType.END){
+
+                boolean b = Play.getInstance().next();
+                if(b){
+                    start();
+                    messageLabel.setText("Gratula, ügyi voltál! :) Tessék, a következő pálya!");
+                } else{
+                    messageLabel.setText("Gratula, ügyi voltál! :) Elfogytak a pályák");
+                }
+
             } else{
-                messageLabel.setText(messageLabel.getText() + "Már majdnem kész vagy, de a célban kell befejezned!");
+                messageLabel.setText(messageLabel.getText() + "\nMár majdnem kész vagy, de a célban kell befejezned!");
             }
         } else {
-            messageLabel.setText(messageLabel.getText() + " Nem sikerült mindent összeszedni, nem teljesítetted a pályát. :(");
+            messageLabel.setText(messageLabel.getText() + " \nNem sikerült mindent összeszedni, nem teljesítetted a pályát. :(");
         }
     }
 
@@ -259,9 +277,9 @@ public class Controller implements Initializable {
 
     public void eatObject(){
 
-        if(getRobotColor()==myBoard.getTile(myRobot.getActualPosition()).getKeyColor()){
+        if(getRobotColor()!=ColorType.NONE && getRobotColor()==myBoard.getTile(myRobot.getActualPosition()).getKeyColor()){
             objectsEaten++;
-            myBoard.getTile(myRobot.getActualPosition()).eat();
+            myBoard.eat(myRobot.getActualPosition());
         }
         reDrawTile();
         drawRobot();

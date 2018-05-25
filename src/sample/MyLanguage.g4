@@ -1,4 +1,4 @@
-grammar nyelv;
+grammar MyLanguage;
 
 program: commandlines*;
 
@@ -23,13 +23,14 @@ getColor: 'myColor' '(' ')';
 turnLeft: 'turnLeft' '(' NUMBER ')';
 turnRight: 'turnRight' '(' NUMBER ')';
 
-color: YELLOW | RED | BLUE | GREEN | NONE;
+color: YELLOW | RED | BLUE | GREEN | NONE | PURPLE;
 
 //színek
 YELLOW: 'yellow';
 RED: 'red';
 BLUE: 'blue';
 GREEN: 'green';
+PURPLE: 'purple';
 NONE: 'none';
 
 //használt kifejezések

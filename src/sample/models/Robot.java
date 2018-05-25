@@ -1,4 +1,8 @@
-package sample;
+package sample.models;
+
+import sample.enums.ColorType;
+import sample.enums.Direction;
+import sample.enums.TileType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -69,7 +73,7 @@ public class Robot {
     public boolean goRight(){
 
         if(actualPosition.right(myBoard)){
-            return !(myBoard.getTileType(actualPosition)==TileType.WATER );
+            return !(myBoard.getTileType(actualPosition)== TileType.WATER );
         } else return false;
 
     }
