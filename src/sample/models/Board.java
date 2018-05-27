@@ -5,17 +5,27 @@ import sample.enums.TileType;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+/**
+    játéktáblát reprezentáló osztály
+ */
 public class Board {
 
+    /** játéktábla */
     private BoardTile[][] board;
+    /** magasság */
     private int height;
+    /** szélesség */
     private int width;
-
+    /** pályán összeszedendő objektumok száma */
     private int numberOfObjects;
 
-    private String[] splittedLine;
-
+    /**
+        konstruktor
+        beolvassa a szüksges adatokat, ebből beállítja  a megfelelő adattagokat
+        létrejön a pálya
+     */
     public Board(BufferedReader br){
+        String[] splittedLine;
         try{
             splittedLine = br.readLine().split(" ");
             numberOfObjects = Integer.parseInt(splittedLine[0]);
@@ -44,7 +54,12 @@ public class Board {
         return width;
     }
 
-    //TODO rendes grafikus megjelenítés
+    /**
+        visszaadja egy tömbben a játéktábla kirajzolásához szükséges típusokat
+        megadja, emlyik mező melyik fájl kell, hogy legyen
+        kirajzolásnál használatos
+        teljes táblát rajzolja
+     */
     public String[][] draw(){
 
         String[][] images = new String[height][width];
@@ -59,10 +74,12 @@ public class Board {
 
     }
 
+    /** megadja a keresett mező típusát két koordináta alapján */
     public String getTileType(int x, int y){
         return board[y][x].draw();
     }
 
+    /** megadja a keresett mező típusát koordináta objektum alapján */
     public TileType getTileType(Coords c){
         return board[c.getY()][c.getX()].getType();
     }
@@ -71,14 +88,20 @@ public class Board {
         return numberOfObjects;
     }
 
+    /** vosszaadja a keresett táblaelemet */
     public BoardTile getTile(Coords c){
         return board[c.getY()][c.getX()];
     }
 
+    /** beállítja a keresett táblaelemet */
     public void setTile(BoardTile b, Coords c){
         board[c.getY()][c.getX()] = b;
     }
 
+    /**
+        táblaelemen lévő objektum megevése
+        beállítja az evés utáni új mezőt a helyére
+     */
     public void eat(Coords c){
         BoardTile tmp = getTile(c);
         tmp.eat();

@@ -1,6 +1,5 @@
 package sample;
 
-
 import org.antlr.v4.runtime.tree.ErrorNode;
 import sample.antlrelements.MyLanguageBaseVisitor;
 import sample.antlrelements.MyLanguageParser;
@@ -8,20 +7,44 @@ import sample.antlrelements.MyLanguageParser;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * saját visitor osztály, a generált MyLanguageBaseVisitorból származtatva
+ * a felülírt emtódusok segítségével végigjárhatom a generált fát
+ */
 public class myVisitor extends MyLanguageBaseVisitor<Object> {
 
+    /** saját controller példány */
     private Controller mycontroller;
+    /**
+     * az egymásba ágyazott ifek és random else ágak kezelésére szolgál
+     */
     private List<Boolean> ifs = new ArrayList<Boolean>();
+    /** ifek számát mutatja meg -1 */
     private int countonif;
-
+    /** megmutatja, történt e hiba a feldolgozás során - ha vízre léptünk, ne folytassuk a játékot */
     private boolean thereWasError = false;
 
+    /**
+     * konstruktor
+     * beállítja a kontroller példányt
+     * -1 re inicializálja az ifek számát, hogy tudjuk követni a listát
+     * @param ctrl controller példány
+     */
     public myVisitor(Controller ctrl){
 
         mycontroller = ctrl;
         countonif = -1;
+
     }
 
+    /**
+     * a program gyökerének bejárására szolgál
+     * bejárja a gyerekit
+     * meghívja a bejárás ereményét megmuattó controller fvt
+     * visszaállítja  a hibajelző boolt
+     * @param ctx
+     * @return
+     */
     @Override
     public Object visitProgram(MyLanguageParser.ProgramContext ctx) {
 
@@ -29,8 +52,15 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         mycontroller.ended();
         thereWasError = false;
         return null;
+
     }
 
+    /**
+     * bejárja a megfelelő parancssorokat, ha nincs hiba
+     * gyerekei parancsok vagy stuktúrák
+     * @param ctx
+     * @return
+     */
     @Override
     public Object visitCommandlines(MyLanguageParser.CommandlinesContext ctx) {
 
@@ -38,6 +68,12 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         return null;
     }
 
+    /**
+     * bejárja a gyerekeit, ha nincs hiba
+     * innen indul a ciklus vagy elágazás
+     * @param ctx
+     * @return
+     */
     @Override
     public Object visitStructure(MyLanguageParser.StructureContext ctx) {
 
@@ -45,6 +81,15 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         return null;
     }
 
+    /**
+     * elágazást bejáró utasítás, csak akkor fut le, ha nem volt addig hiba
+     * megszámoljuk a gyerekeket és meglátogatjuk a másodikat, ami az if feltétele
+     * ha igaz a feltétel, az igaz ágat látogatjuk meg
+     * ha van else ág, akkor beállítjuk a megfelelő segédváltozókat, jelezve hogy  van egy ifünk és éppen ennek az elsét vizsgáljuk
+     * miután meglátogattuk, visszaállítjuk a paramétereket, hogy később más ezt ne használhassa már
+     * @param ctx
+     * @return
+     */
     @Override
     public Object visitBranch(MyLanguageParser.BranchContext ctx) {
 
@@ -67,6 +112,13 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         return null;
     }
 
+    /**
+     * else ág meglátogatására szolgál
+     * csak akkor fut le, ha nincs hiba előtte
+     * lefut, ha tartozik hozzá megfelelően if
+     * @param ctx
+     * @return
+     */
     @Override
     public Object visitElseStatement(MyLanguageParser.ElseStatementContext ctx) {
         if(!thereWasError){
@@ -74,10 +126,16 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
                 visitChildren(ctx);
             }
         }
-
         return null;
     }
 
+    /**
+     * ciklust reprezentáló csomópont futtatására szolgál
+     * csak akkor fut le, ha nem volt hiba
+     * a kapott paraméterszer futtatjuk a kapott parancsokat repprezentáló gyerekágat
+     * @param ctx
+     * @return
+     */
     @Override
     public Object visitCycle(MyLanguageParser.CycleContext ctx) {
         if(!thereWasError){
@@ -95,6 +153,13 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         return null;
     }
 
+    /**
+     * egyenlőséget vizgsáló csomópont
+     * akkor fut le, ha nem volt hiba
+     * összehasonlítja a két gyerekág kimenetét, és visszaadja, hogy egyformák e
+     * @param ctx
+     * @return
+     */
     @Override
     public Object visitEquality(MyLanguageParser.EqualityContext ctx) {
 
@@ -107,6 +172,12 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         return  null;
     }
 
+    /**
+     * parancsot reprezentáló objektum bejárása, ha nem volt hiba
+     * továbblép a gyerekekre
+     * @param ctx
+     * @return
+     */
     @Override
     public Object visitCommand(MyLanguageParser.CommandContext ctx) {
         if(!thereWasError){
@@ -116,6 +187,15 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         return null;
     }
 
+    /**
+     * go utasítás feldolgozása
+     * csak akkor fut le, ha nem volt hiba
+     * a kapott paraméterszer futtatja a robot goját, ha közben érvényes mezőre lép
+     * ha rossz helyre lépne, hibát jelez és leáll, beállítja a hibajelző boolt
+     * rossz input esetén jelez
+     * @param ctx
+     * @return
+     */
     @Override
     public Object visitGoThere(MyLanguageParser.GoThereContext ctx) {
 
@@ -135,12 +215,15 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
                 mycontroller.invalidInputSignaling();
             }
         }
-
-
-
         return null;
     }
 
+    /**
+     * gombnyomást reprezentáló csomópont bejárása
+     * ha nem volt hiba, gombnyomást szimulál a controllerben
+     * @param ctx
+     * @return
+     */
     @Override
     public Object visitPushIt(MyLanguageParser.PushItContext ctx) {
 
@@ -150,16 +233,29 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         return null;
     }
 
+    /**
+     * objektum megevését reprezentálja
+     * ha nem volt hiba
+     * a kontrolerbe hív tovább
+     * @param ctx
+     * @return
+     */
     @Override
     public Object visitEatIt(MyLanguageParser.EatItContext ctx) {
 
         if(!thereWasError){
             mycontroller.eatObject();
         }
-
         return null;
     }
 
+    /**
+     * robot színének visszaadását reprezentálja
+     * ha nem volt hiba
+     * visszaadja a szín stringesített, kisbetűs változatát
+     * @param ctx
+     * @return
+     */
     @Override
     public Object visitGetColor(MyLanguageParser.GetColorContext ctx) {
         if(!thereWasError){
@@ -168,6 +264,14 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         return null;
     }
 
+    /**
+     * balra fordulásért felelős parancsot dolgozza fel
+     * ha nem volt hiba
+     * a feltételben megadott számszor futtatja le
+     * hibás input esetén jelez
+     * @param ctx
+     * @return
+     */
     @Override
     public Object visitTurnLeft(MyLanguageParser.TurnLeftContext ctx) {
 
@@ -188,6 +292,14 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         return null;
     }
 
+    /**
+     * jobbra fordulásért felelős parancsot dolgozza fel
+     * ha nem volt hiba
+     * a feltételben megadott számszor futtatja le
+     * hibás input esetén jelez
+     * @param ctx
+     * @return
+     */
     @Override
     public Object visitTurnRight(MyLanguageParser.TurnRightContext ctx) {
 
@@ -206,8 +318,12 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         return null;
     }
 
-
-
+    /**
+     * kézi színmegadást ellenőrző csomópont
+     * jelenleg csak két színt tud kezelni
+     * @param ctx
+     * @return
+     */
     @Override
     public Object visitColor(MyLanguageParser.ColorContext ctx) {
 
@@ -220,9 +336,13 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         return null;
     }
 
+    /**
+     * hibajelzésért felelős csomópont
+     * @param errorNode
+     * @return
+     */
     @Override
     public Object visitErrorNode(ErrorNode errorNode) {
-        //TODO ?
         mycontroller.erroring();
         return null;
     }

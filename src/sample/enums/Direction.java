@@ -1,5 +1,9 @@
 package sample.enums;
 
+/**
+    irányt reprezentáló osztály
+    robot mozagtásánál használjuk fel
+ */
 public enum Direction {
 
     RIGHT,
@@ -7,7 +11,9 @@ public enum Direction {
     UP,
     DOWN;
 
+    /** megmutatja, melyik irány van jobbra az aktuálistól, mi lesz az új irány, ha jobbra fordulunk */
     private Direction right;
+    /** megmutatja, melyik irány van balra az aktuálistól, mi lesz az új irány, ha balra fordulunk */
     private Direction left;
 
     static{

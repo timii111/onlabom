@@ -6,18 +6,38 @@ import sample.enums.TileType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-
+/**
+    Robotot reprezentáló osztály
+    Felelős a megfelelő adatainak tárolásáért, valamint a pályán való mozgásáért
+ */
 public class Robot {
 
+    /**
+        Robot kezdőpozícióa a pályán
+     */
     private Coords startPosition;
+    /**
+        Robot aktuális pozíciója a pályán
+     */
     private Coords actualPosition;
-
+    /**
+        robot színe
+     */
     private ColorType color;
-
+    /**
+        Irány, amerre a robot néz
+     */
     private Direction myDirection;
-
+    /**
+        aktuális játéktábla
+        ezen mozog a robot
+     */
     private Board myBoard;
 
+
+    /**
+        konstruktor, amely beolvassa a megfelelő adatokat a fájlból és létrehozza az adattagokat
+     */
     public Robot(BufferedReader br){
         String[] splittedLine;
         try{
@@ -32,7 +52,6 @@ public class Robot {
         setMyBoard(br);
 
     }
-
 
     public Direction getMyDirection() {
         return myDirection;
@@ -70,6 +89,11 @@ public class Robot {
         this.actualPosition = actualPosition;
     }
 
+    /**
+        robotot jobbra mozgató fv
+        visszatérési értéke megmutatja, sikeres volt e
+        nem sikerül, ha kimenne a pályáról vagy vízre lépne
+     */
     public boolean goRight(){
 
         if(actualPosition.right(myBoard)){
@@ -77,7 +101,11 @@ public class Robot {
         } else return false;
 
     }
-
+    /**
+       robotot balra mozgató fv
+       visszatérési értéke megmutatja, sikeres volt e
+       nem sikerül, ha kimenne a pályáról vagy vízre lépne
+    */
     public boolean goLeft(){
 
         if(actualPosition.left(myBoard)){
@@ -85,6 +113,11 @@ public class Robot {
         } else return false;
     }
 
+    /**
+       robotot felfelé mozgató fv
+       visszatérési értéke megmutatja, sikeres volt e
+       nem sikerül, ha kimenne a pályáról vagy vízre lépne
+    */
     public boolean goUp(){
 
         if(actualPosition.top(myBoard)){
@@ -92,6 +125,11 @@ public class Robot {
         } else return false;
     }
 
+    /**
+       robotot lefelé mozgató fv
+       visszatérési értéke megmutatja, sikeres volt e
+       nem sikerül, ha kimenne a pályáról vagy vízre lépne
+    */
     public boolean goDown(){
 
         if(actualPosition.down(myBoard)){
@@ -99,14 +137,25 @@ public class Robot {
         } else return false;
     }
 
+    /**
+        robotot balra fordító fv
+     */
     public void turnLeft() {
         setMyDirection(myDirection.getLeft());
     }
 
+    /**
+        robotot jobbra fordító fv
+     */
     public void turnRight(){
         setMyDirection(myDirection.getRight());
     }
 
+    /**
+        robot újratöltése az aktuális pálya üjrakezdéséhez
+        szín, irány alaphelyzetbe állítása
+        visszaállítás a kezdpozícióba
+     */
     public void reload(){
         actualPosition.setX(startPosition.getX());
         actualPosition.setY(startPosition.getY());
