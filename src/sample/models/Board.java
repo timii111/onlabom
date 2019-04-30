@@ -1,7 +1,9 @@
 package sample.models;
 
+import sample.enums.ColorType;
 import sample.enums.TileType;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -106,6 +108,12 @@ public class Board {
     public void eat(Coords c){
         BoardTile tmp = getTile(c);
         tmp.eat();
+        setTile(tmp,c);
+    }
+
+    public void addEatingObject(Coords c, ColorType ct){
+        BoardTile tmp = getTile(c);
+        tmp.addEatingObject(ct);
         setTile(tmp,c);
     }
 }

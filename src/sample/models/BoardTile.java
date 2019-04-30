@@ -93,4 +93,9 @@ public class BoardTile {
         setHasKey(false);
         keyColor = ColorType.NONE;
     }
+
+    public void addEatingObject(ColorType c){
+        setHasKey(true);
+        keyColor = c;
+    }
 }

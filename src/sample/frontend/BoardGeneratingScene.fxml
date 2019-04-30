@@ -1,22 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<GridPane fx:controller="sample.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="TOP_LEFT" hgap="10" vgap="10" >
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="sample.controllers.BoardGenerationController"
+          prefHeight="400.0" prefWidth="600.0"
+          alignment="TOP_LEFT">
 
     <children>
-        <Label text="Juttasd el a robotot a célba!" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="4" >
+        <Label text="Milyen pályán szeretnél majd játszani?" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="4" >
             <font>
                 <Font size="40" name="Arial"/>
             </font>
 
         </Label>
         <TextArea fx:id="txtarea" prefHeight="300" prefWidth="250" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" minHeight="250" minWidth="150"/>
-        <Button text="Indít" GridPane.columnIndex="3" GridPane.rowIndex="2" onAction="#printIt" fx:id="startBtn"/>
-        <Button text="Töröl" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#deleteAll" fx:id="clearBtn"/>
-        <Button text="Újra" GridPane.columnIndex="2" GridPane.rowIndex="2" onAction="#reloadIt" fx:id="againBtn"/>
-        <Canvas fx:id="canvas" GridPane.rowIndex="1" GridPane.columnIndex="4" height="600"  width="500" GridPane.rowSpan="3" />
+        <Button text="Fordít" GridPane.columnIndex="3" GridPane.rowIndex="2" onAction="#renderBoard" fx:id="renderBtn"/>
+        <Button text="Töröl" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#deleteIt" fx:id="deleteBtn"/>
+        <Button text="Mentés" GridPane.columnIndex="2" GridPane.rowIndex="2" onAction="#saveBoard" fx:id="saveBtn"/>
+        <Canvas fx:id="canvas" GridPane.rowIndex="1" GridPane.columnIndex="4" height="600" width="500" GridPane.rowSpan="3" />
         <Label fx:id="messageLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" prefHeight="100" prefWidth="800" GridPane.columnSpan="5" >
             <font>
                 <Font size="20" name="Arial"/>

@@ -1,4 +1,4 @@
-// Generated from C:/Users/Timi/IdeaProjects/onlabom/src/sample\MyLanguage.g4 by ANTLR 4.7
+// Generated from C:/Users/Timi/IdeaProjects/szakdoga/src/sample\MyLanguage.g4 by ANTLR 4.7.2
 package sample.antlrelements;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -179,6 +179,42 @@ public class MyLanguageBaseListener implements MyLanguageListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTurnRight(MyLanguageParser.TurnRightContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunction_def(MyLanguageParser.Function_defContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction_def(MyLanguageParser.Function_defContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunction_call(MyLanguageParser.Function_callContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction_call(MyLanguageParser.Function_callContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBuzzwords(MyLanguageParser.BuzzwordsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBuzzwords(MyLanguageParser.BuzzwordsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

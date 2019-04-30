@@ -1,6 +1,6 @@
 grammar BoardLanguage;
 
-program: startTile sizes(tileCommand)*;
+program: startTile sizes (tileCommand)*;
 
 startTile: START NUMBER NUMBER;
 

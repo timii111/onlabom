@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="TOP_LEFT" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.GameSceneController">
+
+    <children>
+        <Label prefHeight="47.0" prefWidth="534.0" text="Juttasd el a robotot a célba!" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="0">
+            <font>
+                <Font name="Arial" size="40" />
+            </font>
+
+        </Label>
+        <TextArea fx:id="txtarea" minHeight="250" minWidth="150" prefHeight="300" prefWidth="250" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+        <Button fx:id="startBtn" onAction="#translateIt" text="Fordít" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+        <Button fx:id="clearBtn" onAction="#deleteAll" text="Töröl" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Button fx:id="againBtn" onAction="#reloadIt" text="Újra" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <Button fx:id="forwardBtn" onAction="#forward" text="Előre" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <Button fx:id="backBtn" onAction="#back" text="Vissza" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Button fx:id="PlayBtn" onAction="#playIt" text="Lejátszás" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+
+        <Canvas fx:id="canvas" height="600" width="500" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+        <Label fx:id="messageLabel" prefHeight="100" prefWidth="800" GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <font>
+                <Font name="Arial" size="20" />
+            </font>
+        </Label>
+
+    </children>
+
+    <rowConstraints>
+        <RowConstraints minHeight="100" />
+        <RowConstraints minHeight="100" />
+        <RowConstraints minHeight="50" />
+        <RowConstraints minHeight="50" />
+        <RowConstraints minHeight="50" />
+        <RowConstraints minHeight="50" />
+    </rowConstraints>
+
+    <columnConstraints>
+        <ColumnConstraints minWidth="30" />
+        <ColumnConstraints minWidth="80" />
+        <ColumnConstraints minWidth="80" />
+        <ColumnConstraints minWidth="50" />
+        <ColumnConstraints minWidth="250" />
+        <ColumnConstraints minWidth="30" />
+    </columnConstraints>
+
+</GridPane>

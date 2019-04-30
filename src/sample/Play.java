@@ -71,6 +71,11 @@ public class Play {
         return actualBoard.draw();
     }
 
+    public String[][] draw(String str){
+        loadNewBoard(str);
+        return actualBoard.draw();
+    }
+
     /**
      * pálya betöltéséhez használt fv
      * beolvassa az aktuális pálya fájlját, amiben a pályaleírás található
@@ -93,6 +98,17 @@ public class Play {
         }catch (IOException e){
             e.printStackTrace();
         }
+
+    }
+
+    public void loadNewBoard(String str){
+        //TODO az előzővel hasonló, átfedést kiszervezni, újraírni
+
+        Reader inputString = new StringReader(str);
+        BufferedReader reader = new BufferedReader(inputString);
+
+        myRobot = new Robot(reader);
+        actualBoard = myRobot.getMyBoard();
     }
 
     /**

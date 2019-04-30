@@ -1,6 +1,6 @@
 grammar MyLanguage;
 
-program: commandlines*;
+program: function_def* commandlines*;
 
 commandlines: (command | structure)+ ;
 
@@ -14,7 +14,7 @@ cycle: 'repeat' '[' commandlines ']' 'for' '[' NUMBER ']' ;
 
 equality: getColor '=' color;
 
-command: goThere | pushIt | eatIt | getColor | turnLeft | turnRight ;
+command: goThere | pushIt | eatIt | getColor | turnLeft | turnRight | function_call ;
 
 goThere: 'go' '(' NUMBER ')';
 pushIt: 'push' '(' ')';
@@ -22,6 +22,11 @@ eatIt: 'eat' '(' ')';
 getColor: 'myColor' '(' ')';
 turnLeft: 'turnLeft' '(' NUMBER ')';
 turnRight: 'turnRight' '(' NUMBER ')';
+
+function_def: 'def' WORD '(' ')' '{' commandlines '}';
+function_call: WORD '(' ')';
+
+buzzwords: IF | THEN | ELSE | REPEAT | FOR | GO | TURNLEFT | TURNRIGHT | PUSH | EAT | MYCOLOR | DEF;
 
 color: YELLOW | RED | BLUE | GREEN | NONE | PURPLE;
 
@@ -46,6 +51,7 @@ TURNRIGHT: 'turnRight';
 PUSH: 'push';
 EAT: 'eat';
 MYCOLOR: 'myColor';
+DEF: 'def';
 
 EQUAL: '=';
 
@@ -53,6 +59,9 @@ SQUARE1: '[';
 SQUARE2: ']';
 BRACKET1: '(';
 BRACKET2: ')';
+BRACE1: '{';
+BARCE2: '}';
 
 NUMBER: [0-9]+ ;
+WORD: [a-z]+;
 SKIPER: (' ' | '\n' | '\t' | '\r') -> skip;

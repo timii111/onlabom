@@ -10,16 +10,20 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("A programozás gyerekjáték");
-        primaryStage.setScene(new Scene(root, 800, 800));
-        primaryStage.show();
-    }
 
+        FXMLLoader fxmlLoader = new FXMLLoader();
+
+        Parent game = FXMLLoader.load(getClass().getResource("frontend/StartScene.fxml"));
+        primaryStage.setTitle("A programozás gyerekjáték");
+        primaryStage.setScene(new Scene(game, 800, 800));
+        primaryStage.show();
+        //TODO ez nem így fog kinézni
+
+    }
 
     public static void main(String[] args) {
         launch(args);
-        Play ply = Play.getInstance();
-        ply.start();
+
     }
+
 }
