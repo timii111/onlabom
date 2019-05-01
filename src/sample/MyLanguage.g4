@@ -24,7 +24,7 @@ turnLeft: 'turnLeft' '(' NUMBER ')';
 turnRight: 'turnRight' '(' NUMBER ')';
 
 function_def: 'def' WORD '(' ')' '{' commandlines '}';
-function_call: WORD '(' ')';
+function_call: WORD '(' NUMBER ')';
 
 buzzwords: IF | THEN | ELSE | REPEAT | FOR | GO | TURNLEFT | TURNRIGHT | PUSH | EAT | MYCOLOR | DEF;
 
