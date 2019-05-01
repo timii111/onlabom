@@ -1,0 +1,7 @@
+0 0
+2
+2 2
+path key yellow
+water key yellow
+end button yellow
+path
