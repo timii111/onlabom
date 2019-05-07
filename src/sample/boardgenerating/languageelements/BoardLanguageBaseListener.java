@@ -52,6 +52,18 @@ public class BoardLanguageBaseListener implements BoardLanguageListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterEnd(BoardLanguageParser.EndContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEnd(BoardLanguageParser.EndContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTileCommand(BoardLanguageParser.TileCommandContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -59,6 +71,18 @@ public class BoardLanguageBaseListener implements BoardLanguageListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTileCommand(BoardLanguageParser.TileCommandContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCoords(BoardLanguageParser.CoordsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCoords(BoardLanguageParser.CoordsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

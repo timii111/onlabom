@@ -2,10 +2,13 @@ package sample.enums;
 
 /**
     színt reprezentál
-    jelenleg az üres, lila és sárga elérhető csak
+    nincs szín, vagy lehet lila, sárga, piros, zöld illetve kék
  */
 public enum ColorType {
     NONE,
     PURPLE,
-    YELLOW
+    YELLOW,
+    RED,
+    GREEN,
+    BLUE
 }

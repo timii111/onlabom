@@ -29,11 +29,23 @@ public interface BoardLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSizes(BoardLanguageParser.SizesContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link BoardLanguageParser#end}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEnd(BoardLanguageParser.EndContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link BoardLanguageParser#tileCommand}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitTileCommand(BoardLanguageParser.TileCommandContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardLanguageParser#coords}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCoords(BoardLanguageParser.CoordsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardLanguageParser#addExtra}.
 	 * @param ctx the parse tree

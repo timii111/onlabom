@@ -2,11 +2,17 @@ package sample.boardgenerating;
 
 import sample.boardgenerating.languageelements.BoardLanguageBaseVisitor;
 import sample.boardgenerating.languageelements.BoardLanguageParser;
+import sample.models.Coords;
 
 public class MyBoardLanguageVisitor extends BoardLanguageBaseVisitor<Object> {
 
     private String file;
     private int objects;
+
+    private String[][] fields;
+
+    private int size_x;
+    private int size_y;
 
     public MyBoardLanguageVisitor(){
 
@@ -17,42 +23,78 @@ public class MyBoardLanguageVisitor extends BoardLanguageBaseVisitor<Object> {
         file = "";
         objects = 0;
         visitChildren(ctx);
+
+        for(int i=0; i< size_x; i++){
+            for(int j=0; j<size_y; j++){
+                file += fields[i][j] + "\n";
+            }
+        }
+
         file = file.replace("?", objects + ""); //ezígyeléggécsunyi TODO
         return file;
     }
 
     @Override
-    public Object visitStartTile(BoardLanguageParser.StartTileContext ctx) {
-        file += ctx.getChild(1) + " " + ctx.getChild(2) + "\n";
+    public Object visitStartTile(BoardLanguageParser.StartTileContext ctx) { //kell a -1 a két koordrendszer közti átváltáshoz
+        file += (Integer.parseInt(ctx.getChild(1).getText()) -1) + " " + (Integer.parseInt(ctx.getChild(2).getText()) -1) + "\n";
         file += "?\n";
         return visitChildren(ctx);
     }
 
     @Override
     public Object visitSizes(BoardLanguageParser.SizesContext ctx) {
-        file += ctx.getChild(1) + " " + ctx.getChild(2) + "\n";
+        size_x = Integer.parseInt(ctx.getChild(1).toString());
+        size_y = Integer.parseInt(ctx.getChild(2).toString());
+        file += size_x + " " + size_y + "\n";
+
+        fields = new String[size_x][size_y];
+        for(int i=0; i<size_x ; i++){
+            for(int j=0; j<size_y; j++){
+                fields[i][j] = "water";
+            }
+        }
+
         return visitChildren(ctx);
     }
 
     @Override
+    public Object visitEnd(BoardLanguageParser.EndContext ctx){
+        int x = Integer.parseInt(ctx.getChild(1).toString());
+        int y = Integer.parseInt(ctx.getChild(2).toString());
+
+        fields[x-1][y-1] = "end";
+        return null;
+    }
+
+    @Override
     public Object visitTileCommand(BoardLanguageParser.TileCommandContext ctx) {
-        visitChildren(ctx);
+
+        Coords tile = (Coords)visit(ctx.getChild(0));
+
+        String tileType = ctx.getChild(1).getText();
+
+        if(ctx.getChildCount()>2){
+            tileType += " " + (String) visit(ctx.getChild(2));
+        }
+
+        fields[tile.getX()-1][tile.getY()-1] = tileType;
+
         /*String type = ctx.getChild(0).toString();
         //TODO biztos így kell kezelni a nem létező ágat?
         if(ctx.getChild(1) != null) {
             if(type == "path"){
                 visit(ctx.getChild(1));
             } else{
-                //TODO hibajelzés
+                //TODO hibajelzés -> hibakezelő visitor
             }
         }*/
-        file += "\n";
+        //file += "\n";
         return "";
     }
 
     @Override
-    public Object visitAddExtra(BoardLanguageParser.AddExtraContext ctx) {
-        return visitChildren(ctx);
+    public String visitAddExtra(BoardLanguageParser.AddExtraContext ctx) {
+        return ctx.getChild(0).getText() + " " + ctx.getChild(1).getText();
     }
 
     @Override
@@ -74,5 +116,10 @@ public class MyBoardLanguageVisitor extends BoardLanguageBaseVisitor<Object> {
     public Object visitColor(BoardLanguageParser.ColorContext ctx) {
         file += " " + ctx.getChild(0);
         return visitChildren(ctx);
+    }
+
+    @Override
+    public Coords visitCoords(BoardLanguageParser.CoordsContext ctx){
+        return new Coords(Integer.parseInt(ctx.getChild(0).toString()),Integer.parseInt(ctx.getChild(1).toString()) );
     }
 }

@@ -44,6 +44,9 @@ public class GameSceneController implements Initializable {
     @FXML
     private Canvas canvas;
 
+    @FXML
+    private Label messageLabel;
+
     private myVisitor mv;
 
     private BoardController boardController;
@@ -72,10 +75,21 @@ public class GameSceneController implements Initializable {
         CommonTokenStream tokstr = new CommonTokenStream(mylexer);
         MyLanguageParser myparser = new MyLanguageParser(tokstr);
 
+        MyLanguageParser.ProgramContext pc = myparser.program();
+
+        if(myparser.getNumberOfSyntaxErrors() > 0){
+            //TODO hibajelzés a felületen, nem is fordul már le
+            messageLabel.setText("elrontottál valamit a szintaxisban, próbáld újra");
+            //TODO gombok jól működnek ekkor?
+        }
+
+        //TODO erroringvisitor hívása az éles fordítás előtt
+        //TODO hibavisitor hibái hol lesznek kezelve?
+
         //boardController.setCanvas(canvas);
         //TODO board ctrl hol indít?
         mv = new myVisitor(boardController);
-        mv.visitProgram(myparser.program());
+        mv.visitProgram(pc);
     }
 
     public void startGame(){
@@ -113,6 +127,7 @@ public class GameSceneController implements Initializable {
     @FXML
     public void reloadIt(){
         //TODO implement it
+        messageLabel.setText("");
 
         txtarea.setDisable(false);
 
@@ -131,6 +146,11 @@ public class GameSceneController implements Initializable {
         //TODO pl visitor, felületi elemek
         this.boardController = new BoardController(canvas);
         txtarea.setText("");
+    }
+
+    public void erroring(){
+        messageLabel.setText("omething horribel happened");
+//TODO értelmesen, itt kell egyáltalán?
     }
 }
 

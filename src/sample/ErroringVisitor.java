@@ -44,10 +44,8 @@ public class ErroringVisitor extends MyLanguageBaseVisitor<Object> {
      */
     @Override
     public Object visitProgram(MyLanguageParser.ProgramContext ctx) {
-
         visitChildren(ctx);
         return null;
-
     }
 
     /**
@@ -149,10 +147,9 @@ public class ErroringVisitor extends MyLanguageBaseVisitor<Object> {
     @Override
     public Object visitEquality(MyLanguageParser.EqualityContext ctx) {
 
-        Object o1 = visit(ctx.getChild(0));
-        Object o2 = visit(ctx.getChild(2));
+        visitChildren(ctx);
 
-        return o1.equals(o2);
+        return null;
 
     }
 
@@ -190,6 +187,7 @@ public class ErroringVisitor extends MyLanguageBaseVisitor<Object> {
         }catch(NumberFormatException e){
             //mycontroller.invalidInputSignaling();
         }
+        visitChildren(ctx);
         return null;
     }
 
@@ -202,7 +200,7 @@ public class ErroringVisitor extends MyLanguageBaseVisitor<Object> {
     @Override
     public Object visitPushIt(MyLanguageParser.PushItContext ctx) {
 
-
+        visitChildren(ctx);
         return null;
     }
 
@@ -216,7 +214,7 @@ public class ErroringVisitor extends MyLanguageBaseVisitor<Object> {
     @Override
     public Object visitEatIt(MyLanguageParser.EatItContext ctx) {
 
-
+        visitChildren(ctx);
         return null;
     }
 
@@ -229,7 +227,7 @@ public class ErroringVisitor extends MyLanguageBaseVisitor<Object> {
      */
     @Override
     public Object visitGetColor(MyLanguageParser.GetColorContext ctx) {
-
+        visitChildren(ctx);
         //return mycontroller.getRobotColor().toString().toLowerCase();
             return null;
     }
@@ -253,7 +251,7 @@ public class ErroringVisitor extends MyLanguageBaseVisitor<Object> {
         }catch(NumberFormatException e){
             //mycontroller.invalidInputSignaling();
         }
-
+        visitChildren(ctx);
         return null;
     }
 
@@ -267,7 +265,7 @@ public class ErroringVisitor extends MyLanguageBaseVisitor<Object> {
      */
     @Override
     public Object visitTurnRight(MyLanguageParser.TurnRightContext ctx) {
-
+        visitChildren(ctx);
 
         String tmp = ctx.getChild(2).getText();
         try{
@@ -286,15 +284,32 @@ public class ErroringVisitor extends MyLanguageBaseVisitor<Object> {
      * @param ctx
      * @return
      */
-    /*@Override
+    @Override
     public Object visitColor(MyLanguageParser.ColorContext ctx) {
-
+        visitChildren(ctx);
         //TODO értelmesen a színekhez igazítani
         if(ctx.YELLOW()!=null) return "yellow";
         else if(ctx.PURPLE()!=null) return "purple";
         else return null;
 
-    }*/
+    }
+
+
+    @Override
+    public Object visitFunction_def(MyLanguageParser.Function_defContext ctx){
+
+        visitChildren(ctx);
+        return null;
+        //TODO
+    }
+
+    @Override
+    public Object visitFunction_call(MyLanguageParser.Function_callContext ctx){
+        visitChildren(ctx);
+
+        return null;
+        //TODO
+    }
 
     /**
      * hibajelzésért felelős csomópont
@@ -303,7 +318,7 @@ public class ErroringVisitor extends MyLanguageBaseVisitor<Object> {
      */
     @Override
     public Object visitErrorNode(ErrorNode errorNode) {
-        //mycontroller.erroring();
+        mycontroller.erroring();
         return null;
     }
 

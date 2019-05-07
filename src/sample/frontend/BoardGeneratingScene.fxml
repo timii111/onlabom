@@ -1,51 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<GridPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="sample.controllers.BoardGenerationController"
-          prefHeight="400.0" prefWidth="600.0"
-          alignment="TOP_LEFT">
-
-    <children>
-        <Label text="Milyen pályán szeretnél majd játszani?" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="4" >
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.BoardGenerationController">
+   <children>
+        <Label layoutX="113.0" layoutY="30.0" text="Milyen pályán szeretnél majd játszani?">
             <font>
-                <Font size="40" name="Arial"/>
+                <Font name="Arial" size="40" />
             </font>
 
-        </Label>
-        <TextArea fx:id="txtarea" prefHeight="300" prefWidth="250" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" minHeight="250" minWidth="150"/>
-        <Button text="Fordít" GridPane.columnIndex="3" GridPane.rowIndex="2" onAction="#renderBoard" fx:id="renderBtn"/>
-        <Button text="Töröl" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#deleteIt" fx:id="deleteBtn"/>
-        <Button text="Mentés" GridPane.columnIndex="2" GridPane.rowIndex="2" onAction="#saveBoard" fx:id="saveBtn"/>
-        <Canvas fx:id="canvas" GridPane.rowIndex="1" GridPane.columnIndex="4" height="600" width="500" GridPane.rowSpan="3" />
-        <Label fx:id="messageLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" prefHeight="100" prefWidth="800" GridPane.columnSpan="5" >
+              </Label>
+        <TextArea fx:id="txtarea" layoutX="58.0" layoutY="93.0" minHeight="250" minWidth="150" prefHeight="300" prefWidth="250" />
+        <Button fx:id="renderBtn" layoutX="147.0" layoutY="418.0" onAction="#renderBoard" text="Fordít" />
+        <Button fx:id="deleteBtn" layoutX="58.0" layoutY="418.0" onAction="#deleteIt" text="Töröl" />
+        <Button fx:id="saveBtn" layoutX="238.0" layoutY="418.0" onAction="#saveBoard" text="Mentés" />
+        <Canvas fx:id="canvas" height="600" layoutX="399.0" layoutY="77.0" width="500" />
+        <Label fx:id="messageLabel" layoutX="29.0" layoutY="507.0" prefHeight="184.0" prefWidth="355.0">
             <font>
-                <Font size="20" name="Arial"/>
+                <Font name="Arial" size="20" />
             </font>
         </Label>
-
-
-    </children>
-
-    <rowConstraints>
-        <RowConstraints minHeight="100"/>
-        <RowConstraints minHeight="250"/>
-        <RowConstraints minHeight="50" />
-        <RowConstraints minHeight="50" />
-        <RowConstraints minHeight="50" />
-    </rowConstraints>
-
-    <columnConstraints>
-        <ColumnConstraints minWidth="30" />
-        <ColumnConstraints minWidth="80" />
-        <ColumnConstraints minWidth="80" />
-        <ColumnConstraints minWidth="50" />
-        <ColumnConstraints minWidth="250" />
-        <ColumnConstraints minWidth="30" />
-    </columnConstraints>
-
-</GridPane>
+   </children>
+</AnchorPane>

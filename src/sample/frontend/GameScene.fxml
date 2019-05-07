@@ -1,56 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-<GridPane alignment="TOP_LEFT" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.GameSceneController">
-
-    <children>
-        <Label prefHeight="47.0" prefWidth="534.0" text="Juttasd el a robotot a célba!" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="0">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.GameSceneController">
+   <children>
+        <Label layoutX="167.0" layoutY="19.0" prefHeight="47.0" prefWidth="534.0" text="Juttasd el a robotot a célba!">
             <font>
                 <Font name="Arial" size="40" />
             </font>
 
-        </Label>
-        <TextArea fx:id="txtarea" maxHeight="300.0" maxWidth="150.0" prefHeight="300.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" />
-        <Button fx:id="startBtn" onAction="#translateIt" text="Fordít" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-        <Button fx:id="clearBtn" onAction="#deleteAll" text="Töröl" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Button fx:id="againBtn" onAction="#reloadIt" text="Újra" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-        <Button fx:id="forwardBtn" onAction="#forward" text="Előre" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-        <Button fx:id="backBtn" onAction="#back" text="Vissza" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <Button fx:id="PlayBtn" onAction="#playIt" text="Lejátszás" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+              </Label>
+        <TextArea fx:id="txtarea" layoutX="34.0" layoutY="73.0" maxHeight="300.0" maxWidth="268.0" prefHeight="270.0" prefWidth="268.0" />
+        <Button fx:id="startBtn" layoutX="223.0" layoutY="359.0" onAction="#translateIt" prefHeight="31.0" prefWidth="79.0" text="Fordít" />
+        <Button fx:id="clearBtn" layoutX="34.0" layoutY="359.0" onAction="#deleteAll" prefHeight="31.0" prefWidth="61.0" text="Töröl" />
+        <Button fx:id="againBtn" layoutX="141.0" layoutY="359.0" onAction="#reloadIt" prefHeight="31.0" prefWidth="54.0" text="Újra" />
+        <Button fx:id="forwardBtn" layoutX="140.0" layoutY="418.0" onAction="#forward" text="Előre" />
+        <Button fx:id="backBtn" layoutX="34.0" layoutY="418.0" onAction="#back" text="Vissza" />
+        <Button fx:id="PlayBtn" layoutX="223.0" layoutY="418.0" onAction="#playIt" text="Lejátszás" />
 
-        <Canvas fx:id="canvas" height="600" width="500" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-        <Label fx:id="messageLabel" prefHeight="100" prefWidth="800" GridPane.columnIndex="2" GridPane.rowIndex="5">
+              <Canvas fx:id="canvas" height="600" layoutX="360.0" layoutY="66.0" width="500" />
+        <Label fx:id="messageLabel" layoutX="34.0" layoutY="474.0" prefHeight="209.0" prefWidth="277.0">
             <font>
                 <Font name="Arial" size="20" />
             </font>
         </Label>
-
-    </children>
-
-    <rowConstraints>
-        <RowConstraints minHeight="100" />
-        <RowConstraints maxHeight="250.0" minHeight="100" />
-        <RowConstraints minHeight="50" />
-        <RowConstraints minHeight="50" />
-        <RowConstraints minHeight="50" />
-        <RowConstraints minHeight="50" />
-    </rowConstraints>
-
-    <columnConstraints>
-        <ColumnConstraints minWidth="30" />
-        <ColumnConstraints minWidth="80" />
-        <ColumnConstraints maxWidth="80.0" minWidth="80" />
-        <ColumnConstraints minWidth="50" />
-        <ColumnConstraints minWidth="250" />
-        <ColumnConstraints minWidth="30" />
-    </columnConstraints>
-
-</GridPane>
+   </children>
+</AnchorPane>

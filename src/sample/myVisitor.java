@@ -384,17 +384,17 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
      * @param ctx
      * @return
      */
-   /* @Override
+    @Override
     public Object visitColor(MyLanguageParser.ColorContext ctx) {
 
         if(!thereWasError){
-            //TODO értelmesen a színekhez igazítani
+            //TODO értelmesen a színekhez igazítani!!!!!
             if(ctx.YELLOW()!=null) return "yellow";
             else if(ctx.PURPLE()!=null) return "purple";
             else return null;
         }
         return null;
-    }*/
+    }
 
     @Override
     public Object visitFunction_def(MyLanguageParser.Function_defContext ctx){

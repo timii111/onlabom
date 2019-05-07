@@ -38,6 +38,16 @@ public interface BoardLanguageListener extends ParseTreeListener {
 	 */
 	void exitSizes(BoardLanguageParser.SizesContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link BoardLanguageParser#end}.
+	 * @param ctx the parse tree
+	 */
+	void enterEnd(BoardLanguageParser.EndContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardLanguageParser#end}.
+	 * @param ctx the parse tree
+	 */
+	void exitEnd(BoardLanguageParser.EndContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link BoardLanguageParser#tileCommand}.
 	 * @param ctx the parse tree
 	 */
@@ -47,6 +57,16 @@ public interface BoardLanguageListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTileCommand(BoardLanguageParser.TileCommandContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardLanguageParser#coords}.
+	 * @param ctx the parse tree
+	 */
+	void enterCoords(BoardLanguageParser.CoordsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardLanguageParser#coords}.
+	 * @param ctx the parse tree
+	 */
+	void exitCoords(BoardLanguageParser.CoordsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BoardLanguageParser#addExtra}.
 	 * @param ctx the parse tree

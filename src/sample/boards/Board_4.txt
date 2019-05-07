@@ -1,7 +1,18 @@
 0 0
-2
-2 2
-path key yellow
-water key yellow
-end button yellow
+0
+3 5
 path
+path
+water
+path key purple
+path button purple
+water
+end
+water
+water
+water
+water
+water
+water
+water
+water

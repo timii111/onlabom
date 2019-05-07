@@ -5,6 +5,8 @@ import sample.models.Player;
 import sample.models.Robot;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * játékot reprezentáló osztály
@@ -15,7 +17,7 @@ public class Play {
     /** aktuális játék száma */
     private int gameNumber = 1;
     /** maximális pályák száma */
-    private int maxGameNumber = 3;
+    private int maxGameNumber;
     /** aktuális pálya objektum */
     private Board actualBoard;
     /** aktuális játékos objektum */
@@ -39,8 +41,12 @@ public class Play {
         if(ourInstance==null) {
             ourInstance = new Play();
         }
+
         return ourInstance;
     }
+
+    public int getMaxGameNumber(){return maxGameNumber;}
+    public void setMaxGameNumber(int max){ maxGameNumber = max;}
 
     public Robot getMyRobot(){
         return myRobot;
@@ -58,6 +64,10 @@ public class Play {
     private Play() {
         actualPlayer = new Player();
         loadNextStage();
+        File folder = new File("./src/sample/boards");
+        File[] listOfFiles = folder.listFiles();
+
+        maxGameNumber = listOfFiles.length;
     }
 
     /**

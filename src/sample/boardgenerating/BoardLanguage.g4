@@ -1,16 +1,20 @@
 grammar BoardLanguage;
 
-program: startTile sizes (tileCommand)*;
+program: startTile sizes end (tileCommand)*;
 
 startTile: START NUMBER NUMBER;
 
 sizes: SIZE NUMBER NUMBER;
 
-tileCommand: boardTile addExtra?;
+end: END NUMBER NUMBER;
+
+tileCommand: coords boardTile addExtra?;
+
+coords: NUMBER NUMBER;
 
 addExtra: extra color;
 
-boardTile: PATH | WATER | END;
+boardTile: PATH | WATER;
 
 extra: KEY | BUTTON;
 

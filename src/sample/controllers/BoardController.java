@@ -1,13 +1,10 @@
 package sample.controllers;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.transform.Affine;
 import sample.Play;
 import sample.enums.ColorType;
@@ -15,10 +12,6 @@ import sample.enums.TileType;
 import sample.models.Board;
 import sample.models.Robot;
 import sample.myVisitor;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class BoardController {
 
@@ -54,6 +47,7 @@ public class BoardController {
      */
     @FXML
     private Label messageLabel;
+    //TODO ez nincs itt inicializálva, hasonlóan kell mint a canvast
     /**
      * rajzoláshoz használt grapchicscontext
      */
@@ -100,6 +94,12 @@ public class BoardController {
         objectsEaten = 0;
         reloadIt();
 
+    }
+
+    public void clearCanvas(){
+        gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0,0,600,600);
+        //TODO jó ez így?
     }
 
     public void setCanvas(Canvas canvas){
@@ -433,7 +433,7 @@ public class BoardController {
      */
     private void somethingWentWrong() {
         messageLabel.setText("Valamit elrontottál, próbáld újra!");
-        //TODO
+        //TODO nincs itt messagelabel a felületről!!!!
     }
 
     public void drawBoard(String str) {

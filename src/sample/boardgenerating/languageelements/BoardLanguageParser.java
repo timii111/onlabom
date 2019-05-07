@@ -3,11 +3,9 @@ package sample.boardgenerating.languageelements;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
+
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class BoardLanguageParser extends Parser {
@@ -20,12 +18,13 @@ public class BoardLanguageParser extends Parser {
 		START=1, SIZE=2, PATH=3, WATER=4, END=5, KEY=6, BUTTON=7, YELLOW=8, RED=9, 
 		BLUE=10, GREEN=11, PURPLE=12, NONE=13, NUMBER=14, SKIPER=15;
 	public static final int
-		RULE_program = 0, RULE_startTile = 1, RULE_sizes = 2, RULE_tileCommand = 3, 
-		RULE_addExtra = 4, RULE_boardTile = 5, RULE_extra = 6, RULE_color = 7;
+		RULE_program = 0, RULE_startTile = 1, RULE_sizes = 2, RULE_end = 3, RULE_tileCommand = 4, 
+		RULE_coords = 5, RULE_addExtra = 6, RULE_boardTile = 7, RULE_extra = 8, 
+		RULE_color = 9;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"program", "startTile", "sizes", "tileCommand", "addExtra", "boardTile", 
-			"extra", "color"
+			"program", "startTile", "sizes", "end", "tileCommand", "coords", "addExtra", 
+			"boardTile", "extra", "color"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -101,6 +100,9 @@ public class BoardLanguageParser extends Parser {
 		public SizesContext sizes() {
 			return getRuleContext(SizesContext.class,0);
 		}
+		public EndContext end() {
+			return getRuleContext(EndContext.class,0);
+		}
 		public List<TileCommandContext> tileCommand() {
 			return getRuleContexts(TileCommandContext.class);
 		}
@@ -133,21 +135,23 @@ public class BoardLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(16);
+			setState(20);
 			startTile();
-			setState(17);
-			sizes();
 			setState(21);
+			sizes();
+			setState(22);
+			end();
+			setState(26);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PATH) | (1L << WATER) | (1L << END))) != 0)) {
+			while (_la==NUMBER) {
 				{
 				{
-				setState(18);
+				setState(23);
 				tileCommand();
 				}
 				}
-				setState(23);
+				setState(28);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -195,11 +199,11 @@ public class BoardLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(24);
+			setState(29);
 			match(START);
-			setState(25);
+			setState(30);
 			match(NUMBER);
-			setState(26);
+			setState(31);
 			match(NUMBER);
 			}
 		}
@@ -245,11 +249,61 @@ public class BoardLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(28);
+			setState(33);
 			match(SIZE);
-			setState(29);
+			setState(34);
 			match(NUMBER);
-			setState(30);
+			setState(35);
+			match(NUMBER);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class EndContext extends ParserRuleContext {
+		public TerminalNode END() { return getToken(BoardLanguageParser.END, 0); }
+		public List<TerminalNode> NUMBER() { return getTokens(BoardLanguageParser.NUMBER); }
+		public TerminalNode NUMBER(int i) {
+			return getToken(BoardLanguageParser.NUMBER, i);
+		}
+		public EndContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_end; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BoardLanguageListener ) ((BoardLanguageListener)listener).enterEnd(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BoardLanguageListener ) ((BoardLanguageListener)listener).exitEnd(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BoardLanguageVisitor ) return ((BoardLanguageVisitor<? extends T>)visitor).visitEnd(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final EndContext end() throws RecognitionException {
+		EndContext _localctx = new EndContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_end);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(37);
+			match(END);
+			setState(38);
+			match(NUMBER);
+			setState(39);
 			match(NUMBER);
 			}
 		}
@@ -265,6 +319,9 @@ public class BoardLanguageParser extends Parser {
 	}
 
 	public static class TileCommandContext extends ParserRuleContext {
+		public CoordsContext coords() {
+			return getRuleContext(CoordsContext.class,0);
+		}
 		public BoardTileContext boardTile() {
 			return getRuleContext(BoardTileContext.class,0);
 		}
@@ -292,23 +349,72 @@ public class BoardLanguageParser extends Parser {
 
 	public final TileCommandContext tileCommand() throws RecognitionException {
 		TileCommandContext _localctx = new TileCommandContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_tileCommand);
+		enterRule(_localctx, 8, RULE_tileCommand);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(32);
+			setState(41);
+			coords();
+			setState(42);
 			boardTile();
-			setState(34);
+			setState(44);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==KEY || _la==BUTTON) {
 				{
-				setState(33);
+				setState(43);
 				addExtra();
 				}
 			}
 
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class CoordsContext extends ParserRuleContext {
+		public List<TerminalNode> NUMBER() { return getTokens(BoardLanguageParser.NUMBER); }
+		public TerminalNode NUMBER(int i) {
+			return getToken(BoardLanguageParser.NUMBER, i);
+		}
+		public CoordsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_coords; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BoardLanguageListener ) ((BoardLanguageListener)listener).enterCoords(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BoardLanguageListener ) ((BoardLanguageListener)listener).exitCoords(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BoardLanguageVisitor ) return ((BoardLanguageVisitor<? extends T>)visitor).visitCoords(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final CoordsContext coords() throws RecognitionException {
+		CoordsContext _localctx = new CoordsContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_coords);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(46);
+			match(NUMBER);
+			setState(47);
+			match(NUMBER);
 			}
 		}
 		catch (RecognitionException re) {
@@ -350,13 +456,13 @@ public class BoardLanguageParser extends Parser {
 
 	public final AddExtraContext addExtra() throws RecognitionException {
 		AddExtraContext _localctx = new AddExtraContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_addExtra);
+		enterRule(_localctx, 12, RULE_addExtra);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(36);
+			setState(49);
 			extra();
-			setState(37);
+			setState(50);
 			color();
 			}
 		}
@@ -374,7 +480,6 @@ public class BoardLanguageParser extends Parser {
 	public static class BoardTileContext extends ParserRuleContext {
 		public TerminalNode PATH() { return getToken(BoardLanguageParser.PATH, 0); }
 		public TerminalNode WATER() { return getToken(BoardLanguageParser.WATER, 0); }
-		public TerminalNode END() { return getToken(BoardLanguageParser.END, 0); }
 		public BoardTileContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -396,14 +501,14 @@ public class BoardLanguageParser extends Parser {
 
 	public final BoardTileContext boardTile() throws RecognitionException {
 		BoardTileContext _localctx = new BoardTileContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_boardTile);
+		enterRule(_localctx, 14, RULE_boardTile);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(39);
+			setState(52);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PATH) | (1L << WATER) | (1L << END))) != 0)) ) {
+			if ( !(_la==PATH || _la==WATER) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -448,12 +553,12 @@ public class BoardLanguageParser extends Parser {
 
 	public final ExtraContext extra() throws RecognitionException {
 		ExtraContext _localctx = new ExtraContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_extra);
+		enterRule(_localctx, 16, RULE_extra);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(41);
+			setState(54);
 			_la = _input.LA(1);
 			if ( !(_la==KEY || _la==BUTTON) ) {
 			_errHandler.recoverInline(this);
@@ -504,12 +609,12 @@ public class BoardLanguageParser extends Parser {
 
 	public final ColorContext color() throws RecognitionException {
 		ColorContext _localctx = new ColorContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_color);
+		enterRule(_localctx, 18, RULE_color);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(43);
+			setState(56);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << YELLOW) | (1L << RED) | (1L << BLUE) | (1L << GREEN) | (1L << PURPLE) | (1L << NONE))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -533,18 +638,21 @@ public class BoardLanguageParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\21\60\4\2\t\2\4\3"+
-		"\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\3\2\7\2\26"+
-		"\n\2\f\2\16\2\31\13\2\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\5\3\5\5\5%\n\5"+
-		"\3\6\3\6\3\6\3\7\3\7\3\b\3\b\3\t\3\t\3\t\2\2\n\2\4\6\b\n\f\16\20\2\5\3"+
-		"\2\5\7\3\2\b\t\3\2\n\17\2)\2\22\3\2\2\2\4\32\3\2\2\2\6\36\3\2\2\2\b\""+
-		"\3\2\2\2\n&\3\2\2\2\f)\3\2\2\2\16+\3\2\2\2\20-\3\2\2\2\22\23\5\4\3\2\23"+
-		"\27\5\6\4\2\24\26\5\b\5\2\25\24\3\2\2\2\26\31\3\2\2\2\27\25\3\2\2\2\27"+
-		"\30\3\2\2\2\30\3\3\2\2\2\31\27\3\2\2\2\32\33\7\3\2\2\33\34\7\20\2\2\34"+
-		"\35\7\20\2\2\35\5\3\2\2\2\36\37\7\4\2\2\37 \7\20\2\2 !\7\20\2\2!\7\3\2"+
-		"\2\2\"$\5\f\7\2#%\5\n\6\2$#\3\2\2\2$%\3\2\2\2%\t\3\2\2\2&\'\5\16\b\2\'"+
-		"(\5\20\t\2(\13\3\2\2\2)*\t\2\2\2*\r\3\2\2\2+,\t\3\2\2,\17\3\2\2\2-.\t"+
-		"\4\2\2.\21\3\2\2\2\4\27$";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\21=\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\3"+
+		"\2\3\2\3\2\3\2\7\2\33\n\2\f\2\16\2\36\13\2\3\3\3\3\3\3\3\3\3\4\3\4\3\4"+
+		"\3\4\3\5\3\5\3\5\3\5\3\6\3\6\3\6\5\6/\n\6\3\7\3\7\3\7\3\b\3\b\3\b\3\t"+
+		"\3\t\3\n\3\n\3\13\3\13\3\13\2\2\f\2\4\6\b\n\f\16\20\22\24\2\5\3\2\5\6"+
+		"\3\2\b\t\3\2\n\17\2\64\2\26\3\2\2\2\4\37\3\2\2\2\6#\3\2\2\2\b\'\3\2\2"+
+		"\2\n+\3\2\2\2\f\60\3\2\2\2\16\63\3\2\2\2\20\66\3\2\2\2\228\3\2\2\2\24"+
+		":\3\2\2\2\26\27\5\4\3\2\27\30\5\6\4\2\30\34\5\b\5\2\31\33\5\n\6\2\32\31"+
+		"\3\2\2\2\33\36\3\2\2\2\34\32\3\2\2\2\34\35\3\2\2\2\35\3\3\2\2\2\36\34"+
+		"\3\2\2\2\37 \7\3\2\2 !\7\20\2\2!\"\7\20\2\2\"\5\3\2\2\2#$\7\4\2\2$%\7"+
+		"\20\2\2%&\7\20\2\2&\7\3\2\2\2\'(\7\7\2\2()\7\20\2\2)*\7\20\2\2*\t\3\2"+
+		"\2\2+,\5\f\7\2,.\5\20\t\2-/\5\16\b\2.-\3\2\2\2./\3\2\2\2/\13\3\2\2\2\60"+
+		"\61\7\20\2\2\61\62\7\20\2\2\62\r\3\2\2\2\63\64\5\22\n\2\64\65\5\24\13"+
+		"\2\65\17\3\2\2\2\66\67\t\2\2\2\67\21\3\2\2\289\t\3\2\29\23\3\2\2\2:;\t"+
+		"\4\2\2;\25\3\2\2\2\4\34.";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
