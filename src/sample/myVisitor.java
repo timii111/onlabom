@@ -196,16 +196,12 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
     @Override
     public Object visitCycle(MyLanguageParser.CycleContext ctx) {
         if(!thereWasError){
-            try{
+
                 String tmp = ctx.getChild(ctx.getChildCount()-2).toString();
                 int db = Integer.parseInt(tmp);
-                for(int i=0; i<db;i++){
+                for(int i=0; i<db;i++) {
                     visitChildren(ctx);
                 }
-            }catch (NumberFormatException e){
-                //mycontroller.invalidInputSignaling();
-                //TODO hibakezelés hol és mit?
-            }
         }
 
         return null;
@@ -259,23 +255,15 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
 
         if(!thereWasError){
             String tmp = ctx.getChild(2).getText();
-            try{
+
                 int db = Integer.parseInt(ctx.getChild(2).getText());
                 int i=1;
-                //boolean b = mycontroller.go(); //TODO ez nem kell ide
-                boolean b = true; //TODO
+
                 tmpQueue.add(new GoCommand(mycontroller));
-                while (i<db && b) {
-                    //b = mycontroller.go(); //false esetén hiba van!
+                while (i<db) {
                     if (!inFunc) tmpQueue.add(new GoCommand(mycontroller));
                     i++;
                 }
-                if(!b) thereWasError = true;
-
-            }catch(NumberFormatException e){
-                //mycontroller.invalidInputSignaling();
-                //TODO hibakezelés hol és mit?
-            }
         }
         return new GoCommand(mycontroller);
     }
@@ -290,7 +278,6 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
     public Object visitPushIt(MyLanguageParser.PushItContext ctx) {
 
         if(!thereWasError){
-            //mycontroller.pushTile();
             if (!inFunc) tmpQueue.add(new PushCommand(mycontroller));
         }
         return new PushCommand(mycontroller);
@@ -307,7 +294,6 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
     public Object visitEatIt(MyLanguageParser.EatItContext ctx) {
 
         if(!thereWasError){
-            //mycontroller.eatObject();
             if (!inFunc) tmpQueue.add(new EatCommand(mycontroller));
         }
         return new EatCommand(mycontroller);
@@ -340,17 +326,12 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
     public Object visitTurnLeft(MyLanguageParser.TurnLeftContext ctx) {
 
         if(!thereWasError) {
-            String tmp = ctx.getChild(2).getText();
-            try {
+
                 int db = Integer.parseInt(ctx.getChild(2).getText());
                 for (int i = 0; i < db; i++) {
-                    //mycontroller.turnLeft();
                     if (!inFunc) tmpQueue.add(new TurnLeftCommand(mycontroller));
                 }
-            } catch (NumberFormatException e) {
-                //mycontroller.invalidInputSignaling();
-                //TODO hibakezelés hol és mit?
-            }
+
         }
 
         return new TurnLeftCommand(mycontroller);
@@ -368,17 +349,12 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
     public Object visitTurnRight(MyLanguageParser.TurnRightContext ctx) {
 
         if(!thereWasError){
-            String tmp = ctx.getChild(2).getText();
-            try{
+
                 int db = Integer.parseInt(ctx.getChild(2).getText());
                 for(int i=0; i<db;i++){
-                    //mycontroller.turnRight();
                      if (!inFunc) tmpQueue.add(new TurnRightCommand(mycontroller));
                 }
-            }catch(NumberFormatException e){
-                //mycontroller.invalidInputSignaling();
-                //TODO hibakezelés hol és mit?
-            }
+
         }
 
         return new TurnRightCommand(mycontroller);
@@ -404,7 +380,6 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
 
     @Override
     public Object visitFunction_def(MyLanguageParser.Function_defContext ctx){
-        //System.out.println("def func" + ctx.getChild(1).getText());
 
         inFunc = true;
 
@@ -418,12 +393,10 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         inFunc = false;
 
         return null;
-        //TODO
     }
 
     @Override
     public Object visitFunction_call(MyLanguageParser.Function_callContext ctx){
-        //System.out.println("call func" + ctx.getChild(0).getText());
 
         String name = ctx.getChild(0).getText();
 
@@ -438,7 +411,6 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         }
 
         return null;
-        //TODO
     }
 
     /**

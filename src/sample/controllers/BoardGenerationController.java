@@ -72,9 +72,6 @@ public class BoardGenerationController {
             return fileStr;
         }
 
-        //saveBoard();
-        //TODO itt kell meghívni a kirajzolást
-        //TODO automatikusan léptetett fájlszámokat belevinni a játékba
     }
 
     @FXML
@@ -92,7 +89,7 @@ public class BoardGenerationController {
             filesCount++;
             Play.getInstance().setMaxGameNumber(filesCount);
         } catch(IOException e){
-            //TODO
+            messageLabel.setText("nem sikerült a mentés");
         }
     }
 

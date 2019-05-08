@@ -47,13 +47,10 @@ public class BoardController {
      */
 
     private Label messageLabel;
-    //TODO ez nincs itt inicializálva, hasonlóan kell mint a canvast
     /**
      * rajzoláshoz használt grapchicscontext
      */
 
-    private myVisitor mv;
-    //TODO visitor kapcsolódási kérdéskör?
 
     /**
      * konstruktor
@@ -62,8 +59,6 @@ public class BoardController {
 
         this.canvas = canvas;
         this.messageLabel = msgLabel;
-        //start();
-        //TODO kell ide a start? nincs mindig máshonnan indítva?
     }
 
 
@@ -123,8 +118,6 @@ public class BoardController {
      * nullázza a megevett objektumokat
      */
     public void reloadIt() {
-       // messageLabel.setText("");
-        //TODO nem itt van már
         Play.getInstance().start();
 
         myRobot.reload();
@@ -408,23 +401,7 @@ public class BoardController {
         } else {
             messageLabel.setText("Nem sikerült mindent összeszedni, nem teljesítetted a pályát. :(");
             return false;
-            //TODO visszajelzések hol legyenek?
         }
-    }
-
-    /**
-     * hibajelző függvény
-     */
-    public void erroring() {
-        //TODO
-        messageLabel.setText("hiba csúszott a rendszerbe");
-    }
-
-    /**
-     * hibás input jelzése
-     */
-    public void invalidInputSignaling() {
-        invalidInput();
     }
 
     /**
@@ -439,7 +416,6 @@ public class BoardController {
      */
     private void somethingWentWrong() {
         messageLabel.setText("Valamit elrontottál, próbáld újra!");
-        //TODO nincs itt messagelabel a felületről!!!!
     }
 
     public void drawBoard(String str) {
@@ -468,6 +444,5 @@ public class BoardController {
         drawRobot();
 
         objectsEaten = 0;
-        //reloadIt();
     }
 }

@@ -17,7 +17,6 @@ public class Main extends Application {
         primaryStage.setTitle("A programozás gyerekjáték");
         primaryStage.setScene(new Scene(game, 800, 800));
         primaryStage.show();
-        //TODO ez nem így fog kinézni
 
     }
 

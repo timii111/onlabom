@@ -30,7 +30,7 @@ public class MyBoardLanguageVisitor extends BoardLanguageBaseVisitor<Object> {
             }
         }
 
-        file = file.replace("?", objects + ""); //ezígyeléggécsunyi TODO
+        file = file.replace("?", objects + "");
         return file;
     }
 
@@ -79,16 +79,6 @@ public class MyBoardLanguageVisitor extends BoardLanguageBaseVisitor<Object> {
 
         fields[tile.getX()-1][tile.getY()-1] = tileType;
 
-        /*String type = ctx.getChild(0).toString();
-        //TODO biztos így kell kezelni a nem létező ágat?
-        if(ctx.getChild(1) != null) {
-            if(type == "path"){
-                visit(ctx.getChild(1));
-            } else{
-                //TODO hibajelzés -> hibakezelő visitor
-            }
-        }*/
-        //file += "\n";
         return "";
     }
 
