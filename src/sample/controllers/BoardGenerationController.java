@@ -88,7 +88,7 @@ public class BoardGenerationController {
 
         //mentés rész
         try (PrintStream out = new PrintStream(new FileOutputStream("src/sample/boards/Board_" + filesCount + ".txt"))) {
-            out.print(fileStr);
+            out.print(fileStr.toUpperCase());
             filesCount++;
             Play.getInstance().setMaxGameNumber(filesCount);
         } catch(IOException e){
@@ -97,7 +97,7 @@ public class BoardGenerationController {
     }
 
     public void initialize() {
-        boardController = new BoardController(canvas);
+        boardController = new BoardController(canvas, messageLabel);
         filesCount = Play.getInstance().getMaxGameNumber()+1;
     }
 }

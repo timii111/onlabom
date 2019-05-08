@@ -45,7 +45,7 @@ public class BoardController {
     /**
      * visszacsatolást adó címke a felületen, ide kerülnek a hibák és a futtatás eredménye
      */
-    @FXML
+
     private Label messageLabel;
     //TODO ez nincs itt inicializálva, hasonlóan kell mint a canvast
     /**
@@ -58,12 +58,15 @@ public class BoardController {
     /**
      * konstruktor
      */
-    public BoardController(Canvas canvas) {
+    public BoardController(Canvas canvas, Label msgLabel) {
 
         this.canvas = canvas;
+        this.messageLabel = msgLabel;
         //start();
         //TODO kell ide a start? nincs mindig máshonnan indítva?
     }
+
+
 
 
 
@@ -385,7 +388,7 @@ public class BoardController {
      * ha nem ettünk meg mindent, jelezzük a hibát
      * a jelzések megfelelő szövegek, az esetleges hibákhoz hozzáfűzve
      */
-    public void ended() {
+    public boolean ended() {
         if (objectsEaten == myBoard.getNumberOfObjects()) {
 
             if (myBoard.getTile(myRobot.getActualPosition()).getType() == TileType.END) {
@@ -397,12 +400,15 @@ public class BoardController {
                 } else {
                     messageLabel.setText("Gratula, ügyi voltál! :) Elfogytak a pályák");
                 }
-
+                return true;
             } else {
-                messageLabel.setText(messageLabel.getText() + "\nMár majdnem kész vagy, de a célban kell befejezned!");
+                messageLabel.setText("Már majdnem kész vagy, de a célban kell befejezned!");
+                return false;
             }
         } else {
-            messageLabel.setText(messageLabel.getText() + " \nNem sikerült mindent összeszedni, nem teljesítetted a pályát. :(");
+            messageLabel.setText("Nem sikerült mindent összeszedni, nem teljesítetted a pályát. :(");
+            return false;
+            //TODO visszajelzések hol legyenek?
         }
     }
 

@@ -64,6 +64,12 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         }
     }
 
+    public void clear(){
+        toDos.clear();
+        done.clear();
+        tmpQueue.clear();
+    }
+
     /**
      * konstruktor
      * beállítja a kontroller példányt

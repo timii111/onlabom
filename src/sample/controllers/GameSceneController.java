@@ -47,7 +47,10 @@ public class GameSceneController implements Initializable {
     @FXML
     private Label messageLabel;
 
+
     private myVisitor mv;
+
+    private boolean stageSucceeded = false;
 
     private BoardController boardController;
     /**
@@ -102,6 +105,11 @@ public class GameSceneController implements Initializable {
     @FXML
     public void forward(){
         mv.forward();
+
+        stageSucceeded = boardController.ended();
+        if(stageSucceeded){
+            reloadIt();
+        }
     }
 
     /**
@@ -127,13 +135,22 @@ public class GameSceneController implements Initializable {
     @FXML
     public void reloadIt(){
         //TODO implement it
-        messageLabel.setText("");
-
         txtarea.setDisable(false);
-
+        txtarea.clear();
         startBtn.setDisable(false);
         clearBtn.setDisable(false);
+        mv.clear();
     }
+
+    /*@FXML
+    public void nextStage(){
+        if(stageSucceeded){
+            Play.getInstance().next();
+            boardController.start();
+            nextStageBtn.setDisable(true);
+            stageSucceeded = false;
+        }
+    }*/
 
     /** kitörli a beírt kódot */
     public void deleteAll(ActionEvent actionEvent) {
@@ -144,12 +161,12 @@ public class GameSceneController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         //TODO mit kell alaphelyzetbe állítani beolvasáskor?
         //TODO pl visitor, felületi elemek
-        this.boardController = new BoardController(canvas);
+        this.boardController = new BoardController(canvas, messageLabel);
         txtarea.setText("");
     }
 
     public void erroring(){
-        messageLabel.setText("omething horribel happened");
+        messageLabel.setText("something horribel happened");
 //TODO értelmesen, itt kell egyáltalán?
     }
 }

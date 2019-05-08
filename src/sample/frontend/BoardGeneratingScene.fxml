@@ -18,7 +18,7 @@
         <Button fx:id="deleteBtn" layoutX="58.0" layoutY="418.0" onAction="#deleteIt" text="Töröl" />
         <Button fx:id="saveBtn" layoutX="238.0" layoutY="418.0" onAction="#saveBoard" text="Mentés" />
         <Canvas fx:id="canvas" height="600" layoutX="399.0" layoutY="77.0" width="500" />
-        <Label fx:id="messageLabel" layoutX="29.0" layoutY="507.0" prefHeight="184.0" prefWidth="355.0">
+        <Label fx:id="messageLabel" layoutX="29.0" layoutY="507.0" prefHeight="184.0" prefWidth="355.0" wrapText="true">
             <font>
                 <Font name="Arial" size="20" />
             </font>
