@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ErroringBoardLanguageVisitor extends BoardLanguageBaseVisitor<Object> {
+public class ErrorBoardLanguageVisitor extends BoardLanguageBaseVisitor<Object> {
 
     public class ColorExtras{
         public Boolean hasKey;
@@ -29,7 +29,7 @@ public class ErroringBoardLanguageVisitor extends BoardLanguageBaseVisitor<Objec
 
     private Map<String, ColorExtras> buttons;
 
-    public ErroringBoardLanguageVisitor(){
+    public ErrorBoardLanguageVisitor(){
 
     }
 

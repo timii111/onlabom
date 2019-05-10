@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="712.0" prefWidth="952.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="66.0" layoutY="61.0" text="Hogy tudok pályát generálni?">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label layoutX="66.0" layoutY="190.0" text="start x y">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="66.0" layoutY="279.0" text="end x y">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="65.0" layoutY="236.0" prefHeight="30.0" prefWidth="72.0" text="sizes x y">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="65.0" layoutY="344.0" text="x y tiletype">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="135.0" layoutY="439.0" text="path">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="136.0" layoutY="403.0" text="water">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="186.0" layoutY="526.0" text="key">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="186.0" layoutY="485.0" text="button">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="66.0" layoutY="139.0" text="A következő sorokkal tudod megadni a keletkező pályát. Az utasítások csak az adott sorrendben működnek" />
+      <Label layoutX="287.0" layoutY="195.0" text="melyik mezőn kell állnia a robotnak" />
+      <Label layoutX="287.0" layoutY="242.0" text="mekkora pályát szeretnénk" />
+      <Label layoutX="287.0" layoutY="286.0" text="melyik mezőn kell befejezni a pályát" />
+      <Label layoutX="287.0" layoutY="338.0" prefHeight="50.0" prefWidth="483.0" text="ezt az utasítást minden mezőre meg kell adni, aminek szeretnénk valami különleges értéket. a nem megadott mezők víz típusúak lesznek" wrapText="true" />
+      <Label layoutX="287.0" layoutY="408.0" text="víz típusú mező" />
+      <Label layoutX="287.0" layoutY="445.0" text="út típusú mező. a következő extra elemek lehetnek rajta:" />
+      <Label layoutX="287.0" layoutY="490.0" text="gomb, opcionális elem, a megnyomásával színt vált a robot. meg kell adni a színét" />
+      <Label layoutX="287.0" layoutY="531.0" text="kulcs objektum, opcionális elem, amit a robotnak össze kell gyűjtenie. meg kell adni a színét" />
+      <Label layoutX="61.0" layoutY="577.0" prefHeight="71.0" prefWidth="167.0" text="purple | blue | red | green | yellow" wrapText="true">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="287.0" layoutY="602.0" text="felhasználható színek" />
+      <Label layoutX="59.0" layoutY="665.0" text="1 2 path button yellow" textFill="#0b3cdd">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="287.0" layoutY="670.0" text="minta meződefiniálás" textFill="#3816e1" />
+   </children>
+</AnchorPane>

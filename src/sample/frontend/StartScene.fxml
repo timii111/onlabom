@@ -8,18 +8,34 @@
       <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" tabClosingPolicy="UNAVAILABLE">
          <tabs>
 
+            <Tab text="Instrukciók">
+               <content>
+                  <fx:include fx:id="rulesScene" source="RulesScene.fxml" />
+               </content>
+            </Tab>
+
+            <Tab text="Játék nyelvtan">
+               <content>
+                  <fx:include fx:id="grammarScene" source="GrammarScene.fxml" />
+               </content>
+            </Tab>
+
             <Tab text="Játék">
                <content>
                   <fx:include fx:id="gameScene" source="GameScene.fxml" />
+               </content>
+            </Tab>
 
+            <Tab text="Pályagenerálás nyelvtan">
+               <content>
+                  <fx:include fx:id="boardGenGrammarScene" source="BoardGenGrammarScene.fxml" />
                </content>
             </Tab>
 
             <Tab text="Pályagenerálás">
                <content>
                   <fx:include fx:id="boardGeneratingScene" source="BoardGeneratingScene.fxml" />
-
-                     </content>
+               </content>
             </Tab>
          </tabs>
       </TabPane>

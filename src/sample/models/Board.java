@@ -3,7 +3,6 @@ package sample.models;
 import sample.enums.ColorType;
 import sample.enums.TileType;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -111,6 +110,11 @@ public class Board {
         setTile(tmp,c);
     }
 
+    /**
+     * a táblán megevett objektum visszaállítása
+     * @param c a hely ahová vissza kell állítani a kulcsot
+     * @param ct a visszaállított kulcs színe
+     */
     public void addEatingObject(Coords c, ColorType ct){
         BoardTile tmp = getTile(c);
         tmp.addEatingObject(ct);

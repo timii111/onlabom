@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import sample.Play;
-import sample.boardgenerating.ErroringBoardLanguageVisitor;
+import sample.boardgenerating.ErrorBoardLanguageVisitor;
 import sample.boardgenerating.MyBoardLanguageVisitor;
 import sample.boardgenerating.languageelements.BoardLanguageLexer;
 import sample.boardgenerating.languageelements.BoardLanguageParser;
@@ -20,14 +20,10 @@ import java.io.PrintStream;
 
 public class BoardGenerationController {
 
-    @FXML
-    private Button renderBtn;
 
-    @FXML
-    private Button saveBtn;
-
-    @FXML
-    private Button deleteBtn;
+    @FXML private Button renderBtn;
+    @FXML private Button saveBtn;
+    @FXML private Button deleteBtn;
 
     @FXML
     private TextArea txtarea;
@@ -55,7 +51,7 @@ public class BoardGenerationController {
 
         MyBoardLanguageVisitor mv = new MyBoardLanguageVisitor();
 
-        ErroringBoardLanguageVisitor ev = new ErroringBoardLanguageVisitor();
+        ErrorBoardLanguageVisitor ev = new ErrorBoardLanguageVisitor();
 
         BoardLanguageParser.ProgramContext pc = myparser.program();
 

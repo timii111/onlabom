@@ -69,6 +69,7 @@ public class BoardTile {
 
     }
 
+    /** visszaadja a mező típust */
     public TileType getType() {
         return type;
     }
@@ -94,6 +95,7 @@ public class BoardTile {
         keyColor = ColorType.NONE;
     }
 
+    /** visszaállítja a mezőre a már megevett kulcsot, az adott színűre */
     public void addEatingObject(ColorType c){
         setHasKey(true);
         keyColor = c;

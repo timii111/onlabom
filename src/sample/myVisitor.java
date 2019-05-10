@@ -1,5 +1,9 @@
 package sample;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import sample.antlrelements.MyLanguageBaseVisitor;
 import sample.antlrelements.MyLanguageParser;
@@ -36,6 +40,8 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
 
     private boolean inFunc = false;
 
+    private Timeline t;
+
     public void forward(){
         if(toDos.size() >0) {
             Command tmp = toDos.pop();
@@ -52,16 +58,24 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
         }
     }
 
+    public void stop(){
+        if (t != null) t.stop();
+    }
+
     public void play(){
+
+        t = new Timeline();
+        int i = 1;
         while(toDos.size()>0){
-            forward();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                //TODO értelmes hibakezelés
-                e.printStackTrace();
-            }
+            Command tmp = toDos.pop();
+
+            KeyFrame kf = new KeyFrame(Duration.seconds(i), e ->tmp.doIt());
+            t.getKeyFrames().add(kf);
+            done.push(tmp);
+            i++;
         }
+        t.play();
+        t.setOnFinished(e ->mycontroller.ended());
     }
 
     public void clear(){

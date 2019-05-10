@@ -58,7 +58,7 @@ SQUARE2: ']';
 BRACKET1: '(';
 BRACKET2: ')';
 BRACE1: '{';
-BARCE2: '}';
+BRACE2: '}';
 
 NUMBER: [0-9]+ ;
 WORD: [a-z]+;

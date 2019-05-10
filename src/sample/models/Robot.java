@@ -61,10 +61,6 @@ public class Robot {
         this.myDirection = mydirection;
     }
 
-    public void setMyBoard(Board myBoard) {
-        this.myBoard = myBoard;
-    }
-
     public void setMyBoard(BufferedReader br){
         this.myBoard = new Board(br);
     }
@@ -83,10 +79,6 @@ public class Robot {
 
     public Coords getActualPosition() {
         return actualPosition;
-    }
-
-    public void setActualPosition(Coords actualPosition) {
-        this.actualPosition = actualPosition;
     }
 
     /**

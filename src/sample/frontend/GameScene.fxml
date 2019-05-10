@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.canvas.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.GameSceneController">
    <children>
         <Label layoutX="167.0" layoutY="19.0" prefHeight="47.0" prefWidth="534.0" text="Juttasd el a robotot a célba!">
@@ -23,7 +18,7 @@
         <Button fx:id="againBtn" layoutX="141.0" layoutY="359.0" onAction="#reloadIt" prefHeight="31.0" prefWidth="54.0" text="Újra" />
         <Button fx:id="forwardBtn" layoutX="140.0" layoutY="418.0" onAction="#forward" text="Előre" />
         <Button fx:id="backBtn" layoutX="34.0" layoutY="418.0" onAction="#back" text="Vissza" />
-        <Button fx:id="PlayBtn" layoutX="223.0" layoutY="418.0" onAction="#playIt" text="Lejátszás" />
+        <Button fx:id="playBtn" layoutX="223.0" layoutY="418.0" onAction="#playIt" text="Lejátszás" />
 
               <Canvas fx:id="canvas" height="600" layoutX="360.0" layoutY="66.0" width="500" />
         <Label fx:id="messageLabel" layoutX="30.0" layoutY="521.0" prefHeight="209.0" prefWidth="277.0" wrapText="true">

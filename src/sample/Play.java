@@ -1,12 +1,9 @@
 package sample;
 
 import sample.models.Board;
-import sample.models.Player;
 import sample.models.Robot;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * játékot reprezentáló osztály
@@ -20,8 +17,6 @@ public class Play {
     private int maxGameNumber;
     /** aktuális pálya objektum */
     private Board actualBoard;
-    /** aktuális játékos objektum */
-    private Player actualPlayer;
 
     /** bufferedreader, fájlolvasáshoz */
     private BufferedReader br;
@@ -62,7 +57,6 @@ public class Play {
      * betölti a következő pályát
      */
     private Play() {
-        actualPlayer = new Player();
         loadNextStage();
         File folder = new File("./src/sample/boards");
         File[] listOfFiles = folder.listFiles();

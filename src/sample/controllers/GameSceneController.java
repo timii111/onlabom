@@ -35,12 +35,13 @@ public class GameSceneController implements Initializable {
     /** szövegbeviteli mező a felületen */
     @FXML
     private TextArea txtarea;
-    @FXML
-    private Button startBtn;
+    @FXML private Button startBtn;
     /** bevitelt törlő gomb a felületen */
-    @FXML
-    private Button clearBtn;
-
+    @FXML private Button clearBtn;
+    @FXML private Button forwardBtn;
+    @FXML private Button backBtn;
+    @FXML private Button playBtn;
+    @FXML private Button againBtn;
     @FXML
     private Canvas canvas;
 
@@ -63,6 +64,7 @@ public class GameSceneController implements Initializable {
         Play ply = Play.getInstance();
         ply.start();
         //boardController.setCanvas(canvas);
+
     }
     @FXML
     public void translateIt() {
@@ -72,6 +74,9 @@ public class GameSceneController implements Initializable {
         txtarea.setDisable(true);
 
         //TODO többi gomb??
+        forwardBtn.setDisable(false);
+        backBtn.setDisable(false);
+        playBtn.setDisable(false);
 
         CodePointCharStream mystream = CharStreams.fromString(txtarea.getText());
         MyLanguageLexer mylexer = new MyLanguageLexer(mystream);
@@ -106,6 +111,10 @@ public class GameSceneController implements Initializable {
     public void forward(){
         mv.forward();
 
+        succeed();
+    }
+
+    public void succeed(){
         stageSucceeded = boardController.ended();
         if(stageSucceeded){
             reloadIt();
@@ -125,7 +134,10 @@ public class GameSceneController implements Initializable {
      */
     @FXML
     public void playIt(){
+        forwardBtn.setDisable(true);
+        backBtn.setDisable(true);
         mv.play();
+        //succeed();
     }
 
     /**
@@ -135,11 +147,15 @@ public class GameSceneController implements Initializable {
     @FXML
     public void reloadIt(){
         //TODO implement it
+        mv.stop();
         txtarea.setDisable(false);
-        txtarea.clear();
         startBtn.setDisable(false);
         clearBtn.setDisable(false);
+        forwardBtn.setDisable(true);
+        backBtn.setDisable(true);
+        playBtn.setDisable(true);
         mv.clear();
+        boardController.reloadIt();
     }
 
     /*@FXML
@@ -163,6 +179,9 @@ public class GameSceneController implements Initializable {
         //TODO pl visitor, felületi elemek
         this.boardController = new BoardController(canvas, messageLabel);
         txtarea.setText("");
+        forwardBtn.setDisable(true);
+        backBtn.setDisable(true);
+        playBtn.setDisable(true);
     }
 
     public void erroring(){

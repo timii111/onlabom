@@ -11,8 +11,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        FXMLLoader fxmlLoader = new FXMLLoader();
-
         Parent game = FXMLLoader.load(getClass().getResource("frontend/StartScene.fxml"));
         primaryStage.setTitle("A programozás gyerekjáték");
         primaryStage.setScene(new Scene(game, 800, 800));
@@ -22,7 +20,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-
     }
 
 }
