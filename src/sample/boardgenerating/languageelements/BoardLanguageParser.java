@@ -3,9 +3,11 @@ package sample.boardgenerating.languageelements;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
-
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class BoardLanguageParser extends Parser {
@@ -16,7 +18,7 @@ public class BoardLanguageParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		START=1, SIZE=2, PATH=3, WATER=4, END=5, KEY=6, BUTTON=7, YELLOW=8, RED=9, 
-		BLUE=10, GREEN=11, PURPLE=12, NONE=13, NUMBER=14, SKIPER=15;
+		BLUE=10, GREEN=11, PURPLE=12, NUMBER=13, SKIPER=14;
 	public static final int
 		RULE_program = 0, RULE_startTile = 1, RULE_sizes = 2, RULE_end = 3, RULE_tileCommand = 4, 
 		RULE_coords = 5, RULE_addExtra = 6, RULE_boardTile = 7, RULE_extra = 8, 
@@ -32,14 +34,14 @@ public class BoardLanguageParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'start'", "'size'", "'path'", "'water'", "'end'", "'key'", "'button'", 
-			"'yellow'", "'red'", "'blue'", "'green'", "'purple'", "'none'"
+			"'yellow'", "'red'", "'blue'", "'green'", "'purple'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, "START", "SIZE", "PATH", "WATER", "END", "KEY", "BUTTON", "YELLOW", 
-			"RED", "BLUE", "GREEN", "PURPLE", "NONE", "NUMBER", "SKIPER"
+			"RED", "BLUE", "GREEN", "PURPLE", "NUMBER", "SKIPER"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -586,7 +588,6 @@ public class BoardLanguageParser extends Parser {
 		public TerminalNode RED() { return getToken(BoardLanguageParser.RED, 0); }
 		public TerminalNode BLUE() { return getToken(BoardLanguageParser.BLUE, 0); }
 		public TerminalNode GREEN() { return getToken(BoardLanguageParser.GREEN, 0); }
-		public TerminalNode NONE() { return getToken(BoardLanguageParser.NONE, 0); }
 		public TerminalNode PURPLE() { return getToken(BoardLanguageParser.PURPLE, 0); }
 		public ColorContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -616,7 +617,7 @@ public class BoardLanguageParser extends Parser {
 			{
 			setState(56);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << YELLOW) | (1L << RED) | (1L << BLUE) | (1L << GREEN) | (1L << PURPLE) | (1L << NONE))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << YELLOW) | (1L << RED) | (1L << BLUE) | (1L << GREEN) | (1L << PURPLE))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -638,19 +639,19 @@ public class BoardLanguageParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\21=\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\20=\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\3"+
 		"\2\3\2\3\2\3\2\7\2\33\n\2\f\2\16\2\36\13\2\3\3\3\3\3\3\3\3\3\4\3\4\3\4"+
 		"\3\4\3\5\3\5\3\5\3\5\3\6\3\6\3\6\5\6/\n\6\3\7\3\7\3\7\3\b\3\b\3\b\3\t"+
 		"\3\t\3\n\3\n\3\13\3\13\3\13\2\2\f\2\4\6\b\n\f\16\20\22\24\2\5\3\2\5\6"+
-		"\3\2\b\t\3\2\n\17\2\64\2\26\3\2\2\2\4\37\3\2\2\2\6#\3\2\2\2\b\'\3\2\2"+
+		"\3\2\b\t\3\2\n\16\2\64\2\26\3\2\2\2\4\37\3\2\2\2\6#\3\2\2\2\b\'\3\2\2"+
 		"\2\n+\3\2\2\2\f\60\3\2\2\2\16\63\3\2\2\2\20\66\3\2\2\2\228\3\2\2\2\24"+
 		":\3\2\2\2\26\27\5\4\3\2\27\30\5\6\4\2\30\34\5\b\5\2\31\33\5\n\6\2\32\31"+
 		"\3\2\2\2\33\36\3\2\2\2\34\32\3\2\2\2\34\35\3\2\2\2\35\3\3\2\2\2\36\34"+
-		"\3\2\2\2\37 \7\3\2\2 !\7\20\2\2!\"\7\20\2\2\"\5\3\2\2\2#$\7\4\2\2$%\7"+
-		"\20\2\2%&\7\20\2\2&\7\3\2\2\2\'(\7\7\2\2()\7\20\2\2)*\7\20\2\2*\t\3\2"+
+		"\3\2\2\2\37 \7\3\2\2 !\7\17\2\2!\"\7\17\2\2\"\5\3\2\2\2#$\7\4\2\2$%\7"+
+		"\17\2\2%&\7\17\2\2&\7\3\2\2\2\'(\7\7\2\2()\7\17\2\2)*\7\17\2\2*\t\3\2"+
 		"\2\2+,\5\f\7\2,.\5\20\t\2-/\5\16\b\2.-\3\2\2\2./\3\2\2\2/\13\3\2\2\2\60"+
-		"\61\7\20\2\2\61\62\7\20\2\2\62\r\3\2\2\2\63\64\5\22\n\2\64\65\5\24\13"+
+		"\61\7\17\2\2\61\62\7\17\2\2\62\r\3\2\2\2\63\64\5\22\n\2\64\65\5\24\13"+
 		"\2\65\17\3\2\2\2\66\67\t\2\2\2\67\21\3\2\2\289\t\3\2\29\23\3\2\2\2:;\t"+
 		"\4\2\2;\25\3\2\2\2\4\34.";
 	public static final ATN _ATN =

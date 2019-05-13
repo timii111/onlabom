@@ -1,4 +1,4 @@
-// Generated from C:/Users/Timi/IdeaProjects/szakdoga/src/sample\MyLanguage.g4 by ANTLR 4.7.2
+// Generated from C:/Users/Timi/IdeaProjects/szakdoga/src/sample/antlrelements\MyLanguage.g4 by ANTLR 4.7.2
 package sample.antlrelements.languageelements;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -123,13 +123,6 @@ public class MyLanguageBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitFunction_call(MyLanguageParser.Function_callContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitBuzzwords(MyLanguageParser.BuzzwordsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

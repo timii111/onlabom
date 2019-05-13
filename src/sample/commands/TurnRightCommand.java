@@ -2,6 +2,9 @@ package sample.commands;
 
 import sample.controllers.BoardController;
 
+/**
+ * jobbra fordulást becsomagoló parancs objektum
+ */
 public class TurnRightCommand implements Command{
 
     private BoardController ctrl;
@@ -10,13 +13,11 @@ public class TurnRightCommand implements Command{
         this.ctrl = ctrl;
     }
 
-    public boolean doIt(){
+    public void doIt(){
         ctrl.turnRight();
-        return true;
     }
 
-    public boolean undoIt(){
+    public void undoIt(){
         ctrl.turnLeft();
-        return true;
     }
 }

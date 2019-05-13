@@ -20,27 +20,27 @@ import java.io.PrintStream;
 
 public class BoardGenerationController {
 
-
-    @FXML private Button renderBtn;
+    /** mentés gomb */
     @FXML private Button saveBtn;
-    @FXML private Button deleteBtn;
-
-    @FXML
-    private TextArea txtarea;
-
+    /** szövegbeviteli mező */
+    @FXML private TextArea txtarea;
+    /** aktuálisan mentett pálya száma  */
     private int filesCount;
+    /** a használt boardcontroller példány, kirajzolja a létrejött pályát */
     private BoardController boardController;
+    /** rajzoló felület a pályán */
+    @FXML private Canvas canvas;
+    /** hibajelző címke */
+    @FXML private Label messageLabel;
 
-    @FXML
-    private Canvas canvas;
+    public BoardGenerationController(){}
 
-    @FXML
-    private Label messageLabel;
-
-    public BoardGenerationController(){
-
-    }
-
+    /**
+     * fordítás gomb
+     * a beírt szöveget a visitorok segítségével feldolgozza, ha hibátlan, kijelzi
+     * hiba esetén letiltja a mentés funkciót és visszajelez a felületen
+     * ha nincs hiba, visszaadja az előállított pálya leírását, ami menthető állapotban van
+     */
     @FXML
     public String renderBoard(){
         messageLabel.setText("");
@@ -70,11 +70,19 @@ public class BoardGenerationController {
 
     }
 
+    /**
+     * törlés, a beírt kód megsemmisítése
+     */
     @FXML
     public void deleteIt(){
         txtarea.setText("");
     }
 
+    /**
+     * pálya mentésére szolgál
+     * meghívja a kirajzolásért felelős függvényt
+     * kimenti a következő számú fájlba a szöveget
+     */
     @FXML
     public void saveBoard(){
         String fileStr = renderBoard();
@@ -89,6 +97,9 @@ public class BoardGenerationController {
         }
     }
 
+    /**
+     * inicializáló függvény, beállítja a megfelelő változókat
+     */
     public void initialize() {
         boardController = new BoardController(canvas, messageLabel);
         filesCount = Play.getInstance().getMaxGameNumber()+1;

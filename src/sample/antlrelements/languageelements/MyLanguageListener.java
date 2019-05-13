@@ -1,4 +1,4 @@
-// Generated from C:/Users/Timi/IdeaProjects/szakdoga/src/sample\MyLanguage.g4 by ANTLR 4.7.2
+// Generated from C:/Users/Timi/IdeaProjects/szakdoga/src/sample/antlrelements\MyLanguage.g4 by ANTLR 4.7.2
 package sample.antlrelements.languageelements;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -167,16 +167,6 @@ public interface MyLanguageListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunction_call(MyLanguageParser.Function_callContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MyLanguageParser#buzzwords}.
-	 * @param ctx the parse tree
-	 */
-	void enterBuzzwords(MyLanguageParser.BuzzwordsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MyLanguageParser#buzzwords}.
-	 * @param ctx the parse tree
-	 */
-	void exitBuzzwords(MyLanguageParser.BuzzwordsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MyLanguageParser#color}.
 	 * @param ctx the parse tree

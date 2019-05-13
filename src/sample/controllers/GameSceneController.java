@@ -12,7 +12,6 @@ import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import sample.Play;
 import sample.antlrelements.MyErrorVisitor;
-import sample.antlrelements.WrongStepError;
 import sample.antlrelements.languageelements.MyLanguageLexer;
 import sample.antlrelements.languageelements.MyLanguageParser;
 import sample.antlrelements.myVisitor;
@@ -29,28 +28,31 @@ public class GameSceneController implements Initializable {
 
     /** szövegbeviteli mező a felületen */
     @FXML private TextArea txtarea;
+    /** a lépések fordítását megkezdő gomb */
     @FXML private Button startBtn;
     /** bevitelt törlő gomb a felületen */
     @FXML private Button clearBtn;
+    /** előre léptető gomb */
     @FXML private Button forwardBtn;
+    /** visszaléptető gomb */
     @FXML private Button backBtn;
+    /** a lépések automata lejátszását megkezdő gomb */
     @FXML private Button playBtn;
-    @FXML private Button againBtn;
+    /** rajzoló felület */
     @FXML private Canvas canvas;
-
+    /** hibajelző címke */
     @FXML private Label messageLabel;
 
-
+    /** a nyelv feldolgozásához használt visitor */
     private myVisitor mv;
-
+    /** szint sikerét jelző flag */
     private boolean stageSucceeded = false;
-
+    /** a pálya kirajzolását végző boradcontroller példány */
     private BoardController boardController;
-    /**
-     * a beírt kód fordításáért felelős metódus
-     * megfelelő helyzetbe állítja a felületi mezőket és gombokat
-     */
 
+    /**
+     * létrehozza a játékpéldányt, ha még nem jött létre, majd elindítja a játékot
+     */
     public GameSceneController(){
 
         Play ply = Play.getInstance();
@@ -58,6 +60,13 @@ public class GameSceneController implements Initializable {
 
     }
 
+    /**
+     * fordításért felelős metódus
+     * megfelelő helyzetbe állítja a felületi elemeket
+     * lefordítja a kódot, bejárja a megfelelő visitorok segítségével
+     * ha hiba van a kódban, nem végzi el a műveleteket
+     * visszajelzést ad a felületen
+     */
     @FXML
     public void translateIt() {
 
@@ -100,6 +109,9 @@ public class GameSceneController implements Initializable {
         }
     }
 
+    /**
+     * controller inicializálása a játékhoz
+     */
     public void startGame(){
         boardController.start();
     }
@@ -109,15 +121,15 @@ public class GameSceneController implements Initializable {
      */
     @FXML
     public void forward(){
-        try {
-            mv.forward();
-        } catch (WrongStepError wrongStepError) {
-            mv.stop();
-        }
+        mv.forward();
 
         succeed();
     }
 
+    /**
+     * pálya sikerét kezelő metódus
+     * siker esetén következőre léptet, újrainicializálja a változókat
+     */
     public void succeed(){
         stageSucceeded = boardController.ended();
         if(stageSucceeded){
@@ -130,12 +142,7 @@ public class GameSceneController implements Initializable {
      */
     @FXML
     public void back(){
-        try {
-            mv.back();
-        } catch (WrongStepError wrongStepError) {
-            mv.stop();
-            //TODO kell ezt eddig felcsurgatni?
-        }
+        mv.back();
 
         succeed();
     }
@@ -149,8 +156,6 @@ public class GameSceneController implements Initializable {
         backBtn.setDisable(true);
 
         mv.play();
-
-        //succeed();
     }
 
     /**
@@ -170,21 +175,14 @@ public class GameSceneController implements Initializable {
         boardController.reloadIt();
     }
 
-    /*@FXML
-    public void nextStage(){
-        if(stageSucceeded){
-            Play.getInstance().next();
-            boardController.start();
-            nextStageBtn.setDisable(true);
-            stageSucceeded = false;
-        }
-    }*/
-
     /** kitörli a beírt kódot */
     public void deleteAll(ActionEvent actionEvent) {
         txtarea.clear();
     }
 
+    /**
+     * alaphelyzetbe állítja a játékot
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.boardController = new BoardController(canvas, messageLabel);

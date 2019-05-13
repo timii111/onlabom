@@ -6,12 +6,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Main extends Application {
-
+    /**
+     * a játéktér betöltésére szolgáló metódus
+     */
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) {
 
-        Parent game = FXMLLoader.load(getClass().getResource("frontend/StartScene.fxml"));
+        Parent game = null;
+        try {
+            game = FXMLLoader.load(getClass().getResource("frontend/StartScene.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         primaryStage.setTitle("A programozás gyerekjáték");
         primaryStage.setScene(new Scene(game, 800, 800));
         primaryStage.show();

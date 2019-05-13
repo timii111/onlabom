@@ -12,21 +12,13 @@ import java.io.IOException;
  */
 public class Robot {
 
-    /**
-        Robot kezdőpozícióa a pályán
-     */
+    /** Robot kezdőpozícióa a pályán */
     private Coords startPosition;
-    /**
-        Robot aktuális pozíciója a pályán
-     */
+    /** Robot aktuális pozíciója a pályán */
     private Coords actualPosition;
-    /**
-        robot színe
-     */
+    /** robot színe */
     private ColorType color;
-    /**
-        Irány, amerre a robot néz
-     */
+    /** Irány, amerre a robot néz */
     private Direction myDirection;
     /**
         aktuális játéktábla

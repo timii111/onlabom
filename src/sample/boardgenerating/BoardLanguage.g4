@@ -18,9 +18,9 @@ boardTile: PATH | WATER;
 
 extra: KEY | BUTTON;
 
-color: YELLOW | RED | BLUE | GREEN | NONE | PURPLE;
+color: YELLOW | RED | BLUE | GREEN | PURPLE;
 
-//játékeíró elemek
+//játékleíró elemek
 START: 'start';
 SIZE: 'size';
 
@@ -39,7 +39,6 @@ RED: 'red';
 BLUE: 'blue';
 GREEN: 'green';
 PURPLE: 'purple';
-NONE: 'none';
 
 NUMBER: [0-9]+ ;
 SKIPER: (' ' | '\n' | '\t' | '\r') -> skip;

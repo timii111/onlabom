@@ -1,4 +1,4 @@
-// Generated from C:/Users/Timi/IdeaProjects/szakdoga/src/sample\MyLanguage.g4 by ANTLR 4.7.2
+// Generated from C:/Users/Timi/IdeaProjects/szakdoga/src/sample/antlrelements\MyLanguage.g4 by ANTLR 4.7.2
 package sample.antlrelements.languageelements;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -20,7 +20,7 @@ public class MyLanguageLexer extends Lexer {
 		YELLOW=1, RED=2, BLUE=3, GREEN=4, PURPLE=5, NONE=6, IF=7, THEN=8, ELSE=9, 
 		REPEAT=10, FOR=11, GO=12, TURNLEFT=13, TURNRIGHT=14, PUSH=15, EAT=16, 
 		MYCOLOR=17, DEF=18, EQUAL=19, SQUARE1=20, SQUARE2=21, BRACKET1=22, BRACKET2=23, 
-		BRACE1=24, BARCE2=25, NUMBER=26, WORD=27, SKIPER=28;
+		BRACE1=24, BRACE2=25, NUMBER=26, WORD=27, SKIPER=28;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
@@ -34,7 +34,7 @@ public class MyLanguageLexer extends Lexer {
 			"YELLOW", "RED", "BLUE", "GREEN", "PURPLE", "NONE", "IF", "THEN", "ELSE", 
 			"REPEAT", "FOR", "GO", "TURNLEFT", "TURNRIGHT", "PUSH", "EAT", "MYCOLOR", 
 			"DEF", "EQUAL", "SQUARE1", "SQUARE2", "BRACKET1", "BRACKET2", "BRACE1", 
-			"BARCE2", "NUMBER", "WORD", "SKIPER"
+			"BRACE2", "NUMBER", "WORD", "SKIPER"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -53,7 +53,7 @@ public class MyLanguageLexer extends Lexer {
 			null, "YELLOW", "RED", "BLUE", "GREEN", "PURPLE", "NONE", "IF", "THEN", 
 			"ELSE", "REPEAT", "FOR", "GO", "TURNLEFT", "TURNRIGHT", "PUSH", "EAT", 
 			"MYCOLOR", "DEF", "EQUAL", "SQUARE1", "SQUARE2", "BRACKET1", "BRACKET2", 
-			"BRACE1", "BARCE2", "NUMBER", "WORD", "SKIPER"
+			"BRACE1", "BRACE2", "NUMBER", "WORD", "SKIPER"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();

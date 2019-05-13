@@ -1,8 +1,11 @@
 package sample.commands;
 
-import sample.antlrelements.WrongStepError;
+import sample.WrongStepError;
 import sample.controllers.BoardController;
 
+/**
+ * a robot lépését becsomagoló parancs osztály
+ */
 public class GoCommand implements Command {
 
     private BoardController ctrl;
@@ -11,12 +14,12 @@ public class GoCommand implements Command {
         this.ctrl = ctrl;
     }
 
-    public boolean doIt() throws WrongStepError {
-        return ctrl.go();
+    public void doIt() throws WrongStepError {
+        ctrl.go();
     }
 
-    public boolean undoIt() throws WrongStepError {
-        return ctrl.goBack();
+    public void undoIt() throws WrongStepError {
+        ctrl.goBack();
     }
 
 }

@@ -36,7 +36,6 @@ public class Play {
         if(ourInstance==null) {
             ourInstance = new Play();
         }
-
         return ourInstance;
     }
 
@@ -46,15 +45,14 @@ public class Play {
     public Robot getMyRobot(){
         return myRobot;
     }
-
     public Board getMyBoard(){
         return actualBoard;
     }
 
     /**
      * konstruktor
-     * létrehozza az aktuális játékost -> nem használt!
      * betölti a következő pályát
+     * meghatározza a maximális pályaszámot
      */
     private Play() {
         loadNextStage();
@@ -65,7 +63,7 @@ public class Play {
     }
 
     /**
-     * aktuális játék elkezdéséhez, a pálya kirajzoásához használt fv
+     * aktuális játék elkezdéséhez, a pálya kirajzolásához használt fv
      * elindítja a következő pályát
      * megmutatja, milyen mezőkből áll össze a pálya
      * @return visszaadja a játékmezők beolvasásához szükséges elérési utakat
@@ -75,6 +73,10 @@ public class Play {
         return actualBoard.draw();
     }
 
+    /**
+     * a kapott string alapján építi fel a pályát és kirajzolja
+     * saját definiált pályák esetén használandó
+     */
     public String[][] draw(String str){
         loadNewBoard(str);
         return actualBoard.draw();
@@ -105,6 +107,10 @@ public class Play {
 
     }
 
+    /**
+     * beolvassa stringból a pálya adatait
+     * létrehozza a robotot és a pályát
+     */
     public void loadNewBoard(String str){
         Reader inputString = new StringReader(str);
         BufferedReader reader = new BufferedReader(inputString);

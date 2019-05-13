@@ -18,7 +18,6 @@ public class BoardTile {
     private boolean hasKey = false;
     /** megmutatja  afelszedendő objektum színét - alapból nincs */
     private ColorType keyColor = ColorType.NONE;
-
     /** képelérési út összeállításához szükséges változó */
     private String imagePath;
 
@@ -56,7 +55,6 @@ public class BoardTile {
                 } else {
                     imagePath = "pics/PATH.png";
                 }
-
                 break;
             case WATER:
                 imagePath = "pics/WATER.png";

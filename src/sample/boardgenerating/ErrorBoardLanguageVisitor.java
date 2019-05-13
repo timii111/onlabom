@@ -8,8 +8,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * pályageneráló nyelv hibakezelő visitora
+ */
 public class ErrorBoardLanguageVisitor extends BoardLanguageBaseVisitor<Object> {
-
+    /**
+     * színek és a hozzájuk tartozó objektumok tárolására szolgáló osztály.
+     * megmutatja, hogy adott színnek van-e kulcsa illetve gombja
+     */
     public class ColorExtras{
         public Boolean hasKey;
         public Boolean hasButton;
@@ -19,20 +25,25 @@ public class ErrorBoardLanguageVisitor extends BoardLanguageBaseVisitor<Object> 
             hasButton = b;
         }
     }
-
+    /** hibaüzenet tárolására szolgáló string */
     private String errorStr;
-
+    /** tábla felépítésére szolgáló tömb */
     private String[][] fields;
-
+    /** pálya méreteit tároló koordinátaobjektum */
     private Coords size;
+    /** indító helyet tároló koordináta objektum */
     private Coords start;
-
+    /** színek és extrák összerendelésére szolgáló map */
     private Map<String, ColorExtras> buttons;
 
-    public ErrorBoardLanguageVisitor(){
+    public ErrorBoardLanguageVisitor(){}
 
-    }
-
+    /**
+     * a program gyökerén meghívott metódus.
+     * ellenőrzi, hogy minden kulcshoz van-e gomb
+     * ellenőrzi, hogy út mezőről indul-e a robot
+     * ha van hiba, visszaadja az errorstringben
+     */
     @Override
     public Object visitProgram(BoardLanguageParser.ProgramContext ctx)  {
 
@@ -58,6 +69,9 @@ public class ErrorBoardLanguageVisitor extends BoardLanguageBaseVisitor<Object> 
         return errorStr;
     }
 
+    /**
+     * elmenti a start pozíciót
+     */
     @Override
     public Object visitStartTile(BoardLanguageParser.StartTileContext ctx) { //kell a -1 a két koordrendszer közti átváltáshoz
         start = new Coords((Integer.parseInt(ctx.getChild(1).getText()) -1), (Integer.parseInt(ctx.getChild(2).getText()) -1));
@@ -65,6 +79,10 @@ public class ErrorBoardLanguageVisitor extends BoardLanguageBaseVisitor<Object> 
         return visitChildren(ctx);
     }
 
+    /**
+     * elmenti a pálya méreteit
+     * inicializálja a pályát tartalmazó tömböt
+     */
     @Override
     public Object visitSizes(BoardLanguageParser.SizesContext ctx) {
         size = new Coords(Integer.parseInt(ctx.getChild(1).toString()), Integer.parseInt(ctx.getChild(2).toString()));
@@ -79,6 +97,9 @@ public class ErrorBoardLanguageVisitor extends BoardLanguageBaseVisitor<Object> 
         return visitChildren(ctx);
     }
 
+    /**
+     * pálya végét jelző mezőt menti el, beállítja a pálya tömbben is
+     */
     @Override
     public Object visitEnd(BoardLanguageParser.EndContext ctx){
         int x = Integer.parseInt(ctx.getChild(1).toString());
@@ -88,6 +109,10 @@ public class ErrorBoardLanguageVisitor extends BoardLanguageBaseVisitor<Object> 
         return null;
     }
 
+    /**
+     * beállítja a pálya tömbben a mezők típusát
+     * ha egy mező duplikálva lett, a hibastringben jelzi
+     */
     @Override
     public Object visitTileCommand(BoardLanguageParser.TileCommandContext ctx){
 
@@ -109,6 +134,9 @@ public class ErrorBoardLanguageVisitor extends BoardLanguageBaseVisitor<Object> 
         return "";
     }
 
+    /**
+     * elmenti az extra objektumokat a map-be.
+     */
     @Override
     public String visitAddExtra(BoardLanguageParser.AddExtraContext ctx) {
         String type = ctx.getChild(0).getText();
@@ -128,21 +156,9 @@ public class ErrorBoardLanguageVisitor extends BoardLanguageBaseVisitor<Object> 
         return  type + " " + color;
     }
 
-    @Override
-    public Object visitBoardTile(BoardLanguageParser.BoardTileContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Object visitExtra(BoardLanguageParser.ExtraContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Object visitColor(BoardLanguageParser.ColorContext ctx) {
-        return visitChildren(ctx);
-    }
-
+    /**
+     * koordinátákat kezelő csomópont
+     */
     @Override
     public Coords visitCoords(BoardLanguageParser.CoordsContext ctx){
         return new Coords(Integer.parseInt(ctx.getChild(0).toString()),Integer.parseInt(ctx.getChild(1).toString()) );

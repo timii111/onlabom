@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Affine;
 import sample.Play;
-import sample.antlrelements.WrongStepError;
+import sample.WrongStepError;
 import sample.enums.ColorType;
 import sample.enums.TileType;
 import sample.models.Board;
@@ -14,67 +14,28 @@ import sample.models.Robot;
 
 public class BoardController {
 
-    /**
-     * rajzobjektum a felületen
-     */
-
+    /** rajzobjektum a felületen */
     private Canvas canvas;
-    /**
-     * futtatást indító gomb a felületen
-     */
-
+    /** rajzoláshoz használt grapchicscontext */
     private GraphicsContext gc;
-    /**
-     * a játékban irányítandó aktuális robotobjektum
-     */
+    /** a játékban irányítandó aktuális robotobjektum */
     private Robot myRobot;
-    /**
-     * aktuális játéktábla
-     */
+    /** aktuális játéktábla */
     private Board myBoard;
-    /**
-     * a megevett objektumok száma a játék egy futása során
-     */
+    /** a megevett objektumok száma a játék egy futása során */
     private int objectsEaten = 0;
-    /**
-     * a rajzolt mezők mérete, alapértékkel
-     */
+    /** a rajzolt mezők mérete, alapértékkel */
     public int tileSize = 80;
-
-    /**
-     * visszacsatolást adó címke a felületen, ide kerülnek a hibák és a futtatás eredménye
-     */
-
+    /** visszacsatolást adó címke a felületen, ide kerülnek a hibák és a futtatás eredménye */
     private Label messageLabel;
-    /**
-     * rajzoláshoz használt grapchicscontext
-     */
 
-
-    /**
-     * konstruktor
-     */
+    /** konstruktor */
     public BoardController(Canvas canvas, Label msgLabel) {
 
         this.canvas = canvas;
         this.messageLabel = msgLabel;
     }
 
-
-
-
-
-    /**
-     * inicializáláskor elindítja a játékot
-     *
-     * @param location
-     * @param resources
-     */
-   /* @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        start();
-    }
-*/
     /**
      * játék indításáért felelős, nem csak indításkoz használatos
      * beállítja a robotot és a táblát
@@ -93,20 +54,13 @@ public class BoardController {
 
     }
 
+    /**
+     * letörli a rajztáblát
+     */
     public void clearCanvas(){
         gc = canvas.getGraphicsContext2D();
         gc.clearRect(0,0,600,600);
     }
-
-    public void setCanvas(Canvas canvas){
-        this.canvas = canvas;
-    }
-
-    /**
-     * indító gomb által meghvíott függvény, lefuttatja a kód fordítását és értelmezését
-     * beállítja  amegfelelő felületi elemeket, hogy a futtatáshoz ne lehessen módosítani a kódon
-     * fordítás és visitor elindítása
-     */
 
 
     /**
@@ -197,7 +151,7 @@ public class BoardController {
      * robot haladását reprezentálja
      * robot irányának megfelelően meghívja a megfelelő függvényt
      *
-     * @return
+     * @return visszaadja a sikerességét
      */
     public boolean go() throws WrongStepError {
         switch (myRobot.getMyDirection()) {
@@ -213,6 +167,9 @@ public class BoardController {
         return false;
     }
 
+    /**
+     * a robot lépését visszaállító metódus
+     */
     public boolean goBack() throws WrongStepError {
         switch (myRobot.getMyDirection()) {
             case RIGHT:
@@ -332,6 +289,10 @@ public class BoardController {
         return c;
     }
 
+    /**
+     * gomb megnyomását visszaállító metódus
+     * újrarajzolja a felületi elemeket
+     */
     public ColorType unPushTile(ColorType c) {
         reDrawTile();
         myRobot.setColor(c);
@@ -355,6 +316,10 @@ public class BoardController {
         return c;
     }
 
+    /**
+     * megevett kulcs visszaállítására szolgáló metódus
+     * @param c a visszaállított objektum színe
+     */
     public void addEatingObject(ColorType c) {
 
         objectsEaten--;
@@ -403,13 +368,6 @@ public class BoardController {
     }
 
     /**
-     * hibás input visszajelzése a felhasználónak
-     */
-    private void invalidInput() {
-        messageLabel.setText("Valamit elgépeltél, próbáld újra!");
-    }
-
-    /**
      * hiba jelzés a felhasználó felé
      */
     private void somethingWentWrong() throws WrongStepError {
@@ -417,6 +375,11 @@ public class BoardController {
         throw new WrongStepError();
     }
 
+    /**
+     * a kapott string alapján rajzolja ki a pályát
+     * pályagenerálásnál használatos
+     * @param str
+     */
     public void drawBoard(String str) {
 
         gc = canvas.getGraphicsContext2D();
@@ -441,10 +404,16 @@ public class BoardController {
         objectsEaten = 0;
     }
 
+    /**
+     * hibajelzés
+     */
     public void erroring() {
         messageLabel.setText("valami hiba történt");
     }
 
+    /**
+     * visszaadja a jelenleg, robot alatt lévő aktív mező típusát
+     */
     public String getActualTileType(){
         return myBoard.getTileType(myRobot.getActualPosition()).toString();
     }

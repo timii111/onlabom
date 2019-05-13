@@ -1,4 +1,4 @@
-// Generated from C:/Users/Timi/IdeaProjects/szakdoga/src/sample\MyLanguage.g4 by ANTLR 4.7.2
+// Generated from C:/Users/Timi/IdeaProjects/szakdoga/src/sample/antlrelements\MyLanguage.g4 by ANTLR 4.7.2
 package sample.antlrelements.languageelements;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -203,18 +203,6 @@ public class MyLanguageBaseListener implements MyLanguageListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunction_call(MyLanguageParser.Function_callContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBuzzwords(MyLanguageParser.BuzzwordsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBuzzwords(MyLanguageParser.BuzzwordsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

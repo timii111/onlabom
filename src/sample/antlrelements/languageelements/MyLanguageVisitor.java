@@ -1,4 +1,4 @@
-// Generated from C:/Users/Timi/IdeaProjects/szakdoga/src/sample\MyLanguage.g4 by ANTLR 4.7.2
+// Generated from C:/Users/Timi/IdeaProjects/szakdoga/src/sample/antlrelements\MyLanguage.g4 by ANTLR 4.7.2
 package sample.antlrelements.languageelements;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -106,12 +106,6 @@ public interface MyLanguageVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFunction_call(MyLanguageParser.Function_callContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MyLanguageParser#buzzwords}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBuzzwords(MyLanguageParser.BuzzwordsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MyLanguageParser#color}.
 	 * @param ctx the parse tree
