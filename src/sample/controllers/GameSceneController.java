@@ -4,23 +4,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.transform.Affine;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import sample.Play;
-import sample.antlrelements.MyLanguageLexer;
-import sample.antlrelements.MyLanguageParser;
-import sample.enums.ColorType;
-import sample.enums.TileType;
-import sample.models.Board;
-import sample.models.Robot;
-import sample.myVisitor;
+import sample.antlrelements.MyErrorVisitor;
+import sample.antlrelements.WrongStepError;
+import sample.antlrelements.languageelements.MyLanguageLexer;
+import sample.antlrelements.languageelements.MyLanguageParser;
+import sample.antlrelements.myVisitor;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,8 +28,7 @@ import java.util.ResourceBundle;
 public class GameSceneController implements Initializable {
 
     /** szövegbeviteli mező a felületen */
-    @FXML
-    private TextArea txtarea;
+    @FXML private TextArea txtarea;
     @FXML private Button startBtn;
     /** bevitelt törlő gomb a felületen */
     @FXML private Button clearBtn;
@@ -42,11 +36,9 @@ public class GameSceneController implements Initializable {
     @FXML private Button backBtn;
     @FXML private Button playBtn;
     @FXML private Button againBtn;
-    @FXML
-    private Canvas canvas;
+    @FXML private Canvas canvas;
 
-    @FXML
-    private Label messageLabel;
+    @FXML private Label messageLabel;
 
 
     private myVisitor mv;
@@ -63,17 +55,18 @@ public class GameSceneController implements Initializable {
 
         Play ply = Play.getInstance();
         ply.start();
-        //boardController.setCanvas(canvas);
 
     }
+
     @FXML
     public void translateIt() {
+
+        messageLabel.setText("");
 
         startBtn.setDisable(true);
         clearBtn.setDisable(true);
         txtarea.setDisable(true);
 
-        //TODO többi gomb??
         forwardBtn.setDisable(false);
         backBtn.setDisable(false);
         playBtn.setDisable(false);
@@ -85,19 +78,26 @@ public class GameSceneController implements Initializable {
 
         MyLanguageParser.ProgramContext pc = myparser.program();
 
+
         if(myparser.getNumberOfSyntaxErrors() > 0){
-            //TODO hibajelzés a felületen, nem is fordul már le
             messageLabel.setText("elrontottál valamit a szintaxisban, próbáld újra");
-            //TODO gombok jól működnek ekkor?
+            forwardBtn.setDisable(true);
+            backBtn.setDisable(true);
+            playBtn.setDisable(true);
         }
 
-        //TODO erroringvisitor hívása az éles fordítás előtt
-        //TODO hibavisitor hibái hol lesznek kezelve?
+        MyErrorVisitor ev = new MyErrorVisitor();
+        boolean b = (boolean)ev.visitProgram(pc);
 
-        //boardController.setCanvas(canvas);
-        //TODO board ctrl hol indít?
-        mv = new myVisitor(boardController);
-        mv.visitProgram(pc);
+        if(!b){
+            mv = new myVisitor(boardController);
+            mv.visitProgram(pc);
+        } else{
+            messageLabel.setText("elrontottál valamit a szintaxisban, próbáld újra!");
+            forwardBtn.setDisable(true);
+            backBtn.setDisable(true);
+            playBtn.setDisable(true);
+        }
     }
 
     public void startGame(){
@@ -109,7 +109,11 @@ public class GameSceneController implements Initializable {
      */
     @FXML
     public void forward(){
-        mv.forward();
+        try {
+            mv.forward();
+        } catch (WrongStepError wrongStepError) {
+            mv.stop();
+        }
 
         succeed();
     }
@@ -126,7 +130,14 @@ public class GameSceneController implements Initializable {
      */
     @FXML
     public void back(){
-        mv.back();
+        try {
+            mv.back();
+        } catch (WrongStepError wrongStepError) {
+            mv.stop();
+            //TODO kell ezt eddig felcsurgatni?
+        }
+
+        succeed();
     }
 
     /**
@@ -136,7 +147,9 @@ public class GameSceneController implements Initializable {
     public void playIt(){
         forwardBtn.setDisable(true);
         backBtn.setDisable(true);
+
         mv.play();
+
         //succeed();
     }
 
@@ -146,8 +159,7 @@ public class GameSceneController implements Initializable {
      */
     @FXML
     public void reloadIt(){
-        //TODO implement it
-        mv.stop();
+        mv.stop(); //TODO!!
         txtarea.setDisable(false);
         startBtn.setDisable(false);
         clearBtn.setDisable(false);
@@ -175,8 +187,6 @@ public class GameSceneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //TODO mit kell alaphelyzetbe állítani beolvasáskor?
-        //TODO pl visitor, felületi elemek
         this.boardController = new BoardController(canvas, messageLabel);
         txtarea.setText("");
         forwardBtn.setDisable(true);
@@ -184,9 +194,5 @@ public class GameSceneController implements Initializable {
         playBtn.setDisable(true);
     }
 
-    public void erroring(){
-        messageLabel.setText("something horribel happened");
-//TODO értelmesen, itt kell egyáltalán?
-    }
 }
 

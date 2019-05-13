@@ -1,8 +1,10 @@
 package sample.commands;
 
+import sample.antlrelements.WrongStepError;
+
 public interface Command {
 
-    void doIt();
+    boolean doIt() throws WrongStepError;
 
-    void undoIt();
+    boolean undoIt() throws WrongStepError;
 }

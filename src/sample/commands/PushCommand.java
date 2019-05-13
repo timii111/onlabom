@@ -13,12 +13,14 @@ public class PushCommand implements Command{
         this.ctrl = ctrl;
     }
 
-    public void doIt(){
+    public boolean doIt(){
         prev = ctrl.getRobotColor();
         next = ctrl.pushTile();
+        return true;
     }
 
-    public void undoIt(){
+    public boolean undoIt(){
         ctrl.unPushTile(prev);
+        return true;
     }
 }

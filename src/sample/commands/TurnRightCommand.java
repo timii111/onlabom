@@ -10,11 +10,13 @@ public class TurnRightCommand implements Command{
         this.ctrl = ctrl;
     }
 
-    public void doIt(){
+    public boolean doIt(){
         ctrl.turnRight();
+        return true;
     }
 
-    public void undoIt(){
+    public boolean undoIt(){
         ctrl.turnLeft();
+        return true;
     }
 }

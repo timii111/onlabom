@@ -1,8 +1,9 @@
 package sample.commands;
 
+import sample.antlrelements.WrongStepError;
 import sample.controllers.BoardController;
 
-public class GoCommand implements Command{
+public class GoCommand implements Command {
 
     private BoardController ctrl;
 
@@ -10,12 +11,12 @@ public class GoCommand implements Command{
         this.ctrl = ctrl;
     }
 
-    public void doIt(){
-        ctrl.go();
+    public boolean doIt() throws WrongStepError {
+        return ctrl.go();
     }
 
-    public void undoIt(){
-        ctrl.goBack();
+    public boolean undoIt() throws WrongStepError {
+        return ctrl.goBack();
     }
 
 }

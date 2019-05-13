@@ -1,17 +1,16 @@
 package sample.controllers;
 
-import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Affine;
 import sample.Play;
+import sample.antlrelements.WrongStepError;
 import sample.enums.ColorType;
 import sample.enums.TileType;
 import sample.models.Board;
 import sample.models.Robot;
-import sample.myVisitor;
 
 public class BoardController {
 
@@ -97,7 +96,6 @@ public class BoardController {
     public void clearCanvas(){
         gc = canvas.getGraphicsContext2D();
         gc.clearRect(0,0,600,600);
-        //TODO jó ez így?
     }
 
     public void setCanvas(Canvas canvas){
@@ -201,7 +199,7 @@ public class BoardController {
      *
      * @return
      */
-    public boolean go() {
+    public boolean go() throws WrongStepError {
         switch (myRobot.getMyDirection()) {
             case RIGHT:
                 return goRight();
@@ -215,7 +213,7 @@ public class BoardController {
         return false;
     }
 
-    public boolean goBack() {
+    public boolean goBack() throws WrongStepError {
         switch (myRobot.getMyDirection()) {
             case RIGHT:
                 return goLeft();
@@ -236,7 +234,7 @@ public class BoardController {
      *
      * @return a lépés sikerességét mutatja
      */
-    public boolean goRight() {
+    public boolean goRight() throws WrongStepError {
         reDrawTile();
         boolean b = myRobot.goRight();
         if (b) {
@@ -254,7 +252,7 @@ public class BoardController {
      *
      * @return a lépés sikerességét mutatja
      */
-    public boolean goLeft() {
+    public boolean goLeft() throws WrongStepError {
         reDrawTile();
         boolean b = myRobot.goLeft();
         if (b) {
@@ -272,7 +270,7 @@ public class BoardController {
      *
      * @return a lépés sikerességét mutatja
      */
-    public boolean goDown() {
+    public boolean goDown() throws WrongStepError {
         reDrawTile();
         boolean b = myRobot.goDown();
         if (b) {
@@ -290,7 +288,7 @@ public class BoardController {
      *
      * @return a lépés sikerességét mutatja
      */
-    public boolean goUp() {
+    public boolean goUp() throws WrongStepError {
         reDrawTile();
         boolean b = myRobot.goUp();
         if (b) {
@@ -338,7 +336,7 @@ public class BoardController {
         reDrawTile();
         myRobot.setColor(c);
         drawRobot();
-        return c; //TODO kell visszatérni?
+        return c;
     }
 
     /**
@@ -414,18 +412,15 @@ public class BoardController {
     /**
      * hiba jelzés a felhasználó felé
      */
-    private void somethingWentWrong() {
+    private void somethingWentWrong() throws WrongStepError {
         messageLabel.setText("Valamit elrontottál, próbáld újra!");
+        throw new WrongStepError();
     }
 
     public void drawBoard(String str) {
 
-        //TODO loadimages bemásolva, újraírva, kiszűrni, mi nem kell
-
-
-        //TODO tuti jó a méret?
         gc = canvas.getGraphicsContext2D();
-        gc.clearRect(0, 0, 600, 500);
+        gc.clearRect(0, 0, 600, 600);
         String[][] images = Play.getInstance().draw(str.toUpperCase());
 
         myRobot = Play.getInstance().getMyRobot();
@@ -444,5 +439,13 @@ public class BoardController {
         drawRobot();
 
         objectsEaten = 0;
+    }
+
+    public void erroring() {
+        messageLabel.setText("valami hiba történt");
+    }
+
+    public String getActualTileType(){
+        return myBoard.getTileType(myRobot.getActualPosition()).toString();
     }
 }

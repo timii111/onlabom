@@ -12,11 +12,14 @@ public class EatCommand implements Command{
         this.ctrl = ctrl;
     }
 
-    public void doIt(){
+    public boolean doIt(){
         keyColor = ctrl.eatObject();
+
+        return true;
     }
 
-    public void undoIt(){
+    public boolean undoIt(){
         ctrl.addEatingObject(keyColor);
+        return true;
     }
 }

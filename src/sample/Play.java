@@ -106,8 +106,6 @@ public class Play {
     }
 
     public void loadNewBoard(String str){
-        //TODO az előzővel hasonló, átfedést kiszervezni, újraírni
-
         Reader inputString = new StringReader(str);
         BufferedReader reader = new BufferedReader(inputString);
 
