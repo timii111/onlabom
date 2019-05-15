@@ -115,8 +115,12 @@ public class myVisitor extends MyLanguageBaseVisitor<Object> {
             i++;
 
         }
-        t.play();
-        t.setOnFinished(e -> play2());
+        if (t.getKeyFrames().size() == 0) {
+            mycontroller.ended();
+        }else{
+            t.play();
+            t.setOnFinished(e -> play2());
+        }
     }
 
     /**
