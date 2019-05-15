@@ -1,5 +1,6 @@
 package sample.models;
 
+import sample.enums.ColorType;
 import sample.enums.TileType;
 
 import java.io.BufferedReader;
@@ -7,7 +8,6 @@ import java.io.IOException;
 
 /**
     játéktáblát reprezentáló osztály
- .
  */
 public class Board {
 
@@ -106,6 +106,17 @@ public class Board {
     public void eat(Coords c){
         BoardTile tmp = getTile(c);
         tmp.eat();
+        setTile(tmp,c);
+    }
+
+    /**
+     * a táblán megevett objektum visszaállítása
+     * @param c a hely ahová vissza kell állítani a kulcsot
+     * @param ct a visszaállított kulcs színe
+     */
+    public void addEatingObject(Coords c, ColorType ct){
+        BoardTile tmp = getTile(c);
+        tmp.addEatingObject(ct);
         setTile(tmp,c);
     }
 }

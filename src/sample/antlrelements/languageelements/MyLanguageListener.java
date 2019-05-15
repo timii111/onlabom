@@ -1,5 +1,5 @@
-// Generated from C:/Users/Timi/IdeaProjects/onlabom/src/sample\MyLanguage.g4 by ANTLR 4.7
-package sample.antlrelements;
+// Generated from C:/Users/Timi/IdeaProjects/szakdoga/src/sample/antlrelements\MyLanguage.g4 by ANTLR 4.7.2
+package sample.antlrelements.languageelements;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -147,6 +147,26 @@ public interface MyLanguageListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTurnRight(MyLanguageParser.TurnRightContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MyLanguageParser#function_def}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_def(MyLanguageParser.Function_defContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MyLanguageParser#function_def}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_def(MyLanguageParser.Function_defContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MyLanguageParser#function_call}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_call(MyLanguageParser.Function_callContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MyLanguageParser#function_call}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_call(MyLanguageParser.Function_callContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MyLanguageParser#color}.
 	 * @param ctx the parse tree

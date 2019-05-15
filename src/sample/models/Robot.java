@@ -12,21 +12,13 @@ import java.io.IOException;
  */
 public class Robot {
 
-    /**
-        Robot kezdőpozícióa a pályán
-     */
+    /** Robot kezdőpozícióa a pályán */
     private Coords startPosition;
-    /**
-        Robot aktuális pozíciója a pályán
-     */
+    /** Robot aktuális pozíciója a pályán */
     private Coords actualPosition;
-    /**
-        robot színe
-     */
+    /** robot színe */
     private ColorType color;
-    /**
-        Irány, amerre a robot néz
-     */
+    /** Irány, amerre a robot néz */
     private Direction myDirection;
     /**
         aktuális játéktábla
@@ -61,10 +53,6 @@ public class Robot {
         this.myDirection = mydirection;
     }
 
-    public void setMyBoard(Board myBoard) {
-        this.myBoard = myBoard;
-    }
-
     public void setMyBoard(BufferedReader br){
         this.myBoard = new Board(br);
     }
@@ -83,10 +71,6 @@ public class Robot {
 
     public Coords getActualPosition() {
         return actualPosition;
-    }
-
-    public void setActualPosition(Coords actualPosition) {
-        this.actualPosition = actualPosition;
     }
 
     /**

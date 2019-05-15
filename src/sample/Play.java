@@ -1,7 +1,6 @@
 package sample;
 
 import sample.models.Board;
-import sample.models.Player;
 import sample.models.Robot;
 
 import java.io.*;
@@ -15,11 +14,9 @@ public class Play {
     /** aktuális játék száma */
     private int gameNumber = 1;
     /** maximális pályák száma */
-    private int maxGameNumber = 3;
+    private int maxGameNumber;
     /** aktuális pálya objektum */
     private Board actualBoard;
-    /** aktuális játékos objektum */
-    private Player actualPlayer;
 
     /** bufferedreader, fájlolvasáshoz */
     private BufferedReader br;
@@ -42,32 +39,46 @@ public class Play {
         return ourInstance;
     }
 
+    public int getMaxGameNumber(){return maxGameNumber;}
+    public void setMaxGameNumber(int max){ maxGameNumber = max;}
+
     public Robot getMyRobot(){
         return myRobot;
     }
-
     public Board getMyBoard(){
         return actualBoard;
     }
 
     /**
      * konstruktor
-     * létrehozza az aktuális játékost -> nem használt!
      * betölti a következő pályát
+     * meghatározza a maximális pályaszámot
      */
     private Play() {
-        actualPlayer = new Player();
         loadNextStage();
+        File folder = new File("./src/sample/boards");
+        File[] listOfFiles = folder.listFiles();
+
+        maxGameNumber = listOfFiles.length;
     }
 
     /**
-     * aktuális játék elkezdéséhez, a pálya kirajzoásához használt fv
+     * aktuális játék elkezdéséhez, a pálya kirajzolásához használt fv
      * elindítja a következő pályát
      * megmutatja, milyen mezőkből áll össze a pálya
      * @return visszaadja a játékmezők beolvasásához szükséges elérési utakat
      */
     public String[][] start(){
         loadNextStage();
+        return actualBoard.draw();
+    }
+
+    /**
+     * a kapott string alapján építi fel a pályát és kirajzolja
+     * saját definiált pályák esetén használandó
+     */
+    public String[][] draw(String str){
+        loadNewBoard(str);
         return actualBoard.draw();
     }
 
@@ -93,6 +104,19 @@ public class Play {
         }catch (IOException e){
             e.printStackTrace();
         }
+
+    }
+
+    /**
+     * beolvassa stringból a pálya adatait
+     * létrehozza a robotot és a pályát
+     */
+    public void loadNewBoard(String str){
+        Reader inputString = new StringReader(str);
+        BufferedReader reader = new BufferedReader(inputString);
+
+        myRobot = new Robot(reader);
+        actualBoard = myRobot.getMyBoard();
     }
 
     /**

@@ -1,49 +1,21 @@
-package sample;
+package sample.controllers;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Affine;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CodePointCharStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import sample.antlrelements.MyLanguageLexer;
-import sample.antlrelements.MyLanguageParser;
+import sample.Play;
+import sample.WrongStepError;
 import sample.enums.ColorType;
 import sample.enums.TileType;
 import sample.models.Board;
 import sample.models.Robot;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+public class BoardController {
 
-/**
- * controller osztály
- * kapcsolatot tart a ui és a modellek között
- * kapcsolatot tart a visitorral
- */
-public class Controller implements Initializable {
-    /** szövegbeviteli mező a felületen */
-    @FXML
-    private TextArea txtarea;
     /** rajzobjektum a felületen */
-    @FXML
     private Canvas canvas;
-    /** futtatást indító gomb a felületen */
-    @FXML
-    private Button startBtn;
-    /** bevitelt törlő gomb a felületen */
-    @FXML
-    private Button clearBtn;
-    /** visszacsatolást adó címke a felületen, ide kerülnek a hibák és a futatás eredménye */
-    @FXML
-    private Label messageLabel;
     /** rajzoláshoz használt grapchicscontext */
     private GraphicsContext gc;
     /** a játékban irányítandó aktuális robotobjektum */
@@ -54,20 +26,14 @@ public class Controller implements Initializable {
     private int objectsEaten = 0;
     /** a rajzolt mezők mérete, alapértékkel */
     public int tileSize = 80;
+    /** visszacsatolást adó címke a felületen, ide kerülnek a hibák és a futtatás eredménye */
+    private Label messageLabel;
 
     /** konstruktor */
-    public Controller() {
+    public BoardController(Canvas canvas, Label msgLabel) {
 
-    }
-
-    /**
-     * inicializáláskor elindítja a játékot
-     * @param location
-     * @param resources
-     */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        start();
+        this.canvas = canvas;
+        this.messageLabel = msgLabel;
     }
 
     /**
@@ -78,36 +44,24 @@ public class Controller implements Initializable {
      * inicializál minden felületibeállítást
      * üres szöveggel kezdünk
      */
-    public void start(){
+    public void start() {
+
         myRobot = Play.getInstance().getMyRobot();
         myBoard = Play.getInstance().getMyBoard();
         loadImages();
         objectsEaten = 0;
         reloadIt();
-        txtarea.setText("");
+
     }
 
     /**
-     * indító gomb által meghvíott függvény, lefuttatja a kód fordítását és értelmezését
-     * beállítja  amegfelelő felületi elemeket, hogy a futtatáshoz ne lehessen módosítani a kódon
-     * fordítás és visitor elindítása
+     * letörli a rajztáblát
      */
-    @FXML
-    public void printIt() {
-
-        startBtn.setDisable(true);
-        clearBtn.setDisable(true);
-        messageLabel.setText("");
-        txtarea.setDisable(true);
-
-        CodePointCharStream mystream = CharStreams.fromString(txtarea.getText());
-        MyLanguageLexer mylexer = new MyLanguageLexer(mystream);
-        CommonTokenStream tokstr = new CommonTokenStream(mylexer);
-        MyLanguageParser myparser = new MyLanguageParser(tokstr);
-
-        myVisitor mv = new myVisitor(this);
-        mv.visitProgram(myparser.program());
+    public void clearCanvas(){
+        gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0,0,600,600);
     }
+
 
     /**
      * újra gombot reprezentálja
@@ -116,10 +70,6 @@ public class Controller implements Initializable {
      * nullázza a megevett objektumokat
      */
     public void reloadIt() {
-        startBtn.setDisable(false);
-        clearBtn.setDisable(false);
-        messageLabel.setText("");
-        txtarea.setDisable(false);
         Play.getInstance().start();
 
         myRobot.reload();
@@ -128,10 +78,6 @@ public class Controller implements Initializable {
         objectsEaten = 0;
     }
 
-    /** kitörli a beírt kódot */
-    public void deleteAll(ActionEvent actionEvent) {
-        txtarea.clear();
-    }
 
     /**
      * beállítja a graphicscontextet
@@ -139,7 +85,6 @@ public class Controller implements Initializable {
      * kirajzolja a táblát a képekből
      * kirajzolja a robotot
      */
-    @FXML
     public void loadImages() {
         gc = canvas.getGraphicsContext2D();
 
@@ -166,7 +111,7 @@ public class Controller implements Initializable {
         int x = myRobot.getActualPosition().getX();
         int y = myRobot.getActualPosition().getY();
 
-        gc.clearRect(x * tileSize+1, y * tileSize+1, tileSize-1, tileSize-1);
+        gc.clearRect(x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
 
         Image im = new Image(myBoard.getTileType(x, y));
         gc.drawImage(im, x * tileSize, y * tileSize, tileSize, tileSize); //-1 az elcsúszás kezelésére
@@ -198,16 +143,17 @@ public class Controller implements Initializable {
         Affine rotate = new Affine();
         rotate.appendRotation(rotationAngle, myRobot.getActualPosition().getX() * tileSize + tileSize / 2, myRobot.getActualPosition().getY() * tileSize + tileSize / 2);
         gc.setTransform(rotate);
-        gc.drawImage(new Image("pics/ROBOT_"+myRobot.getColor()+".png"), myRobot.getActualPosition().getX() * tileSize, myRobot.getActualPosition().getY() * tileSize, tileSize, tileSize);
+        gc.drawImage(new Image("pics/ROBOT_" + myRobot.getColor() + ".png"), myRobot.getActualPosition().getX() * tileSize, myRobot.getActualPosition().getY() * tileSize, tileSize, tileSize);
         gc.restore();
     }
 
     /**
      * robot haladását reprezentálja
      * robot irányának megfelelően meghívja a megfelelő függvényt
-     * @return
+     *
+     * @return visszaadja a sikerességét
      */
-    public boolean go() {
+    public boolean go() throws WrongStepError {
         switch (myRobot.getMyDirection()) {
             case RIGHT:
                 return goRight();
@@ -222,12 +168,30 @@ public class Controller implements Initializable {
     }
 
     /**
+     * a robot lépését visszaállító metódus
+     */
+    public boolean goBack() throws WrongStepError {
+        switch (myRobot.getMyDirection()) {
+            case RIGHT:
+                return goLeft();
+            case LEFT:
+                return goRight();
+            case UP:
+                return goDown();
+            case DOWN:
+                return goUp();
+        }
+        return false;
+    }
+
+    /**
      * a robotot jobbra mozgatja
      * újrarajzolja a helyét
      * majd kirajzolja az új helyre, ha nem lépett hibás mezőre
+     *
      * @return a lépés sikerességét mutatja
      */
-    public boolean goRight() {
+    public boolean goRight() throws WrongStepError {
         reDrawTile();
         boolean b = myRobot.goRight();
         if (b) {
@@ -242,9 +206,10 @@ public class Controller implements Initializable {
      * a robotot balra mozgatja
      * újrarajzolja a helyét
      * majd kirajzolja az új helyre, ha nem lépett hibás mezőre
+     *
      * @return a lépés sikerességét mutatja
      */
-    public boolean goLeft() {
+    public boolean goLeft() throws WrongStepError {
         reDrawTile();
         boolean b = myRobot.goLeft();
         if (b) {
@@ -259,9 +224,10 @@ public class Controller implements Initializable {
      * a robotot lefelé mozgatja
      * újrarajzolja a helyét
      * majd kirajzolja az új helyre, ha nem lépett hibás mezőre
+     *
      * @return a lépés sikerességét mutatja
      */
-    public boolean goDown() {
+    public boolean goDown() throws WrongStepError {
         reDrawTile();
         boolean b = myRobot.goDown();
         if (b) {
@@ -276,9 +242,10 @@ public class Controller implements Initializable {
      * a robotot felfelé mozgatja
      * újrarajzolja a helyét
      * majd kirajzolja az új helyre, ha nem lépett hibás mezőre
+     *
      * @return a lépés sikerességét mutatja
      */
-    public boolean goUp() {
+    public boolean goUp() throws WrongStepError {
         reDrawTile();
         boolean b = myRobot.goUp();
         if (b) {
@@ -314,10 +281,23 @@ public class Controller implements Initializable {
      * újrarajzolja a mezőt
      * majd a robotot is, a megnyomás után, a megváltozott állapotában
      */
-    public void pushTile(){
+    public ColorType pushTile() {
         reDrawTile();
-        myRobot.setColor(myBoard.getTile(myRobot.getActualPosition()).push());
+        ColorType c = myBoard.getTile(myRobot.getActualPosition()).push();
+        myRobot.setColor(c);
         drawRobot();
+        return c;
+    }
+
+    /**
+     * gomb megnyomását visszaállító metódus
+     * újrarajzolja a felületi elemeket
+     */
+    public ColorType unPushTile(ColorType c) {
+        reDrawTile();
+        myRobot.setColor(c);
+        drawRobot();
+        return c;
     }
 
     /**
@@ -325,17 +305,33 @@ public class Controller implements Initializable {
      * ha megfelelő, nem nulla színű objektumon van, akkor megeszi az obektumot, és ezt számolja is
      * újrarajzolja a mezőt és a robotot
      */
-    public void eatObject(){
-
-        if(getRobotColor()!=ColorType.NONE && getRobotColor()==myBoard.getTile(myRobot.getActualPosition()).getKeyColor()){
+    public ColorType eatObject() {
+        ColorType c = myBoard.getTile(myRobot.getActualPosition()).getKeyColor();
+        if (getRobotColor() != ColorType.NONE && getRobotColor() == c) {
             objectsEaten++;
             myBoard.eat(myRobot.getActualPosition());
         }
         reDrawTile();
         drawRobot();
+        return c;
     }
 
-    /** visszaadja a robot színét */
+    /**
+     * megevett kulcs visszaállítására szolgáló metódus
+     * @param c a visszaállított objektum színe
+     */
+    public void addEatingObject(ColorType c) {
+
+        objectsEaten--;
+        myBoard.addEatingObject(myRobot.getActualPosition(), c);
+
+        reDrawTile();
+        drawRobot();
+    }
+
+    /**
+     * visszaadja a robot színét
+     */
     public ColorType getRobotColor() {
         return myRobot.getColor();
     }
@@ -343,59 +339,82 @@ public class Controller implements Initializable {
     /**
      * játék végét kezelő függvény
      * ha mindent megettünk:
-     *      ha a célban állunk, sikert jelzünk és betöltjük a következő pályát, ha van még
-     *      ha nem célban állunk, jelezzük, hogy oda kell eljutni
+     * ha a célban állunk, sikert jelzünk és betöltjük a következő pályát, ha van még
+     * ha nem célban állunk, jelezzük, hogy oda kell eljutni
      * ha nem ettünk meg mindent, jelezzük a hibát
      * a jelzések megfelelő szövegek, az esetleges hibákhoz hozzáfűzve
      */
-    public void ended() {
+    public boolean ended() {
         if (objectsEaten == myBoard.getNumberOfObjects()) {
 
-            if(myBoard.getTile(myRobot.getActualPosition()).getType()== TileType.END){
+            if (myBoard.getTile(myRobot.getActualPosition()).getType() == TileType.END) {
 
                 boolean b = Play.getInstance().next();
-                if(b){
+                if (b) {
                     start();
                     messageLabel.setText("Gratula, ügyi voltál! :) Tessék, a következő pálya!");
-                } else{
+                } else {
                     messageLabel.setText("Gratula, ügyi voltál! :) Elfogytak a pályák");
                 }
-
-            } else{
-                messageLabel.setText(messageLabel.getText() + "\nMár majdnem kész vagy, de a célban kell befejezned!");
+                return true;
+            } else {
+                messageLabel.setText("Már majdnem kész vagy, de a célban kell befejezned!");
+                return false;
             }
         } else {
-            messageLabel.setText(messageLabel.getText() + " \nNem sikerült mindent összeszedni, nem teljesítetted a pályát. :(");
+            messageLabel.setText("Nem sikerült mindent összeszedni, nem teljesítetted a pályát. :(");
+            return false;
         }
-    }
-
-    /**
-     * hibajelző függvény
-     */
-    public void erroring() {
-        //TODO
-        messageLabel.setText("hiba csúszott a rendszerbe");
-    }
-
-    /**
-     * hibás input jelzése
-     */
-    public void invalidInputSignaling() {
-        invalidInput();
-    }
-
-    /**
-     * hibás input visszajelzése a felhasználónak
-     */
-    private void invalidInput() {
-        messageLabel.setText("Valamit elgépeltél, próbáld újra!");
     }
 
     /**
      * hiba jelzés a felhasználó felé
      */
-    private void somethingWentWrong() {
+    private void somethingWentWrong() throws WrongStepError {
         messageLabel.setText("Valamit elrontottál, próbáld újra!");
-        //TODO
+        throw new WrongStepError();
+    }
+
+    /**
+     * a kapott string alapján rajzolja ki a pályát
+     * pályagenerálásnál használatos
+     * @param str
+     */
+    public void drawBoard(String str) {
+
+        gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, 600, 600);
+        String[][] images = Play.getInstance().draw(str.toUpperCase());
+
+        myRobot = Play.getInstance().getMyRobot();
+        myBoard = Play.getInstance().getMyBoard();
+
+        int h = images.length;
+        int w = images[0].length;
+
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                Image im = new Image(images[i][j]);
+                gc.drawImage(im, j * tileSize, i * tileSize, tileSize, tileSize);
+            }
+        }
+
+        drawRobot();
+
+        objectsEaten = 0;
+    }
+
+    /**
+     * hibajelzés
+     */
+    public void erroring() {
+        messageLabel.setText("valami hiba történt");
+    }
+
+    /**
+     * visszaadja a jelenleg, robot alatt lévő aktív mező típusát
+     */
+    public String getActualTileType(){
+        return myBoard.getTileType(myRobot.getActualPosition()).toString();
     }
 }

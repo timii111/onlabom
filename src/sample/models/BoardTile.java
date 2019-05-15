@@ -18,7 +18,6 @@ public class BoardTile {
     private boolean hasKey = false;
     /** megmutatja  afelszedendő objektum színét - alapból nincs */
     private ColorType keyColor = ColorType.NONE;
-
     /** képelérési út összeállításához szükséges változó */
     private String imagePath;
 
@@ -56,7 +55,6 @@ public class BoardTile {
                 } else {
                     imagePath = "pics/PATH.png";
                 }
-
                 break;
             case WATER:
                 imagePath = "pics/WATER.png";
@@ -69,6 +67,7 @@ public class BoardTile {
 
     }
 
+    /** visszaadja a mező típust */
     public TileType getType() {
         return type;
     }
@@ -92,5 +91,11 @@ public class BoardTile {
     public void eat(){
         setHasKey(false);
         keyColor = ColorType.NONE;
+    }
+
+    /** visszaállítja a mezőre a már megevett kulcsot, az adott színűre */
+    public void addEatingObject(ColorType c){
+        setHasKey(true);
+        keyColor = c;
     }
 }
