@@ -1,87 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="737.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="37.0" layoutY="38.0" text="Hogy irányíthatom a robotot?">
+      <Label layoutX="25.0" layoutY="40.0" text="Hogy irányíthatom a robotot?">
          <font>
-            <Font size="34.0" />
+            <Font size="40.0" />
          </font>
       </Label>
-      <Label layoutX="40.0" layoutY="133.0" text="go(x)">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="41.0" layoutY="219.0" text="turnRight(x)">
+      <Label layoutX="40.0" layoutY="135.0" text="go(x)">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="40.0" layoutY="176.0" prefHeight="30.0" prefWidth="96.0" text="turnLeft(x)">
+      <Label layoutX="40.0" layoutY="215.0" text="turnRight(x)">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="41.0" layoutY="256.0" text="eat()">
+      <Label layoutX="40.0" layoutY="175.0" prefHeight="30.0" prefWidth="96.0" text="turnLeft(x)">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="43.0" layoutY="354.0" text="myColor()">
+      <Label layoutX="40.0" layoutY="255.0" text="eat()">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="42.0" layoutY="296.0" text="push()">
+      <Label layoutX="40.0" layoutY="335.0" text="myColor()">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="39.0" layoutY="412.0" prefHeight="75.0" prefWidth="254.0" text="if [ feltétel ] then [ utasítások ] else [ utasítások ]" wrapText="true">
+      <Label layoutX="40.0" layoutY="295.0" text="push()">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="43.0" layoutY="388.0" text="=">
+      <Label layoutX="40.0" layoutY="415.0" prefHeight="69.0" prefWidth="254.0" text="if [ feltétel ] then [ utasítások ] else [ utasítások ]" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="37.0" layoutY="98.0" text="A következő parancsokkal tudod irányítani a robotot:" />
-      <Label layoutX="295.0" layoutY="138.0" text="a robot aktuális irányának megfelelően lép x mezőt előre" />
-      <Label layoutX="296.0" layoutY="222.0" text="jobbra fordul x-szer 90-ot" />
-      <Label layoutX="296.0" layoutY="261.0" text="összeszedi a mezőn található kulcs objektumot. üres mezőn nincs hatása" />
-      <Label layoutX="296.0" layoutY="296.0" prefHeight="50.0" prefWidth="483.0" text="megnyomja a mezőn található gombot, a robot színe a gomb színére változik. üres mezőn nincs hatása" wrapText="true" />
-      <Label layoutX="297.0" layoutY="358.0" text="a robot színét lekérő metódus" />
-      <Label layoutX="296.0" layoutY="395.0" text="összehasonlító operátor" />
-      <Label layoutX="298.0" layoutY="423.0" prefHeight="58.0" prefWidth="480.0" text="elágazás, a feltételbe logikai kifejezést várunk, a szögletes zárójelbe tetszőleges utasítást megadhatunk, amit az adott ágon kell elvégezni" wrapText="true" />
-      <Label layoutX="298.0" layoutY="509.0" text="ciklus, a megadott utasításokat hajtja végre az ismétlésszámnak megfelelően" />
-      <Label layoutX="36.0" layoutY="478.0" prefHeight="75.0" prefWidth="209.0" text="repeat [ utasítások ] for [ ismétlésszám ]" wrapText="true">
+      <Label layoutX="40.0" layoutY="375.0" text="=">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="296.0" layoutY="692.0" text="felhasználható színek" />
-      <Label layoutX="295.0" layoutY="181.0" text="balra fordul x-szer 90-ot" />
-      <Label layoutX="36.0" layoutY="568.0" prefHeight="30.0" prefWidth="217.0" text="def fvnev() { utasítások }" wrapText="true">
+      <Label layoutX="25.0" layoutY="98.0" text="A következő parancsokkal tudod irányítani a robotot:" />
+      <Label layoutX="300.0" layoutY="140.0" text="a robot aktuális irányának megfelelően lép x mezőt előre" />
+      <Label layoutX="300.0" layoutY="220.0" text="jobbra fordul x-szer 90-ot" />
+      <Label layoutX="300.0" layoutY="260.0" text="összeszedi a mezőn található kulcs objektumot. üres mezőn nincs hatása" />
+      <Label layoutX="300.0" layoutY="300.0" prefHeight="13.0" prefWidth="702.0" text="megnyomja a mezőn található gombot, a robot színe a gomb színére változik. üres mezőn nincs hatása" wrapText="true" />
+      <Label layoutX="300.0" layoutY="340.0" text="a robot színét lekérő metódus" />
+      <Label layoutX="300.0" layoutY="380.0" text="összehasonlító operátor" />
+      <Label layoutX="300.0" layoutY="420.0" prefHeight="58.0" prefWidth="480.0" text="elágazás, a feltételbe logikai kifejezést várunk, a szögletes zárójelbe tetszőleges utasítást megadhatunk, amit az adott ágon kell elvégezni" wrapText="true" />
+      <Label layoutX="300.0" layoutY="515.0" text="ciklus, a megadott utasításokat hajtja végre az ismétlésszámnak megfelelően" />
+      <Label layoutX="40.0" layoutY="485.0" prefHeight="75.0" prefWidth="209.0" text="repeat [ utasítások ] for [ ismétlésszám ]" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="298.0" layoutY="552.0" prefHeight="69.0" prefWidth="614.0" text="függvény definiálása. csak a program elején lehetséges, de tetszőleges számú definiálható. a függvény neve az angol ABC kisbetűiből áll. tetszőleges utasítás és már korábban definiált függvény meghívható az utasítások között" wrapText="true" />
-      <Label layoutX="32.0" layoutY="630.0" prefHeight="30.0" prefWidth="75.0" text="fvnev(x)" wrapText="true">
+      <Label layoutX="300.0" layoutY="680.0" text="felhasználható színek" />
+      <Label layoutX="300.0" layoutY="180.0" text="balra fordul x-szer 90-ot" />
+      <Label layoutX="40.0" layoutY="565.0" prefHeight="30.0" prefWidth="217.0" text="def fvnev() { utasítások }" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="32.0" layoutY="667.0" prefHeight="71.0" prefWidth="167.0" text="purple | blue | red | green | yellow" wrapText="true">
+      <Label layoutX="300.0" layoutY="550.0" prefHeight="69.0" prefWidth="725.0" text="függvény definiálása. csak a program elején lehetséges, de tetszőleges számú definiálható. a függvény neve az angol ABC kisbetűiből áll. tetszőleges utasítás és már korábban definiált függvény meghívható az utasítások között" wrapText="true" />
+      <Label layoutX="40.0" layoutY="625.0" prefHeight="30.0" prefWidth="75.0" text="fvnev(x)" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="293.0" layoutY="635.0" text="a definiált függvény meghívása a paraméterben megadott mennyiségszer" />
+      <Label layoutX="40.0" layoutY="655.0" prefHeight="71.0" prefWidth="217.0" text="blue / yellow / green / red / purple" wrapText="true">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="300.0" layoutY="630.0" text="a definiált függvény meghívása a paraméterben megadott mennyiségszer" />
    </children>
 </AnchorPane>

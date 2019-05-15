@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,8 +22,9 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        primaryStage.getIcons().add(new Image("pics/ROBOT_NONE.png"));
         primaryStage.setTitle("A programozás gyerekjáték");
-        primaryStage.setScene(new Scene(game, 800, 800));
+        primaryStage.setScene(new Scene(game, 1000, 800));
         primaryStage.show();
 
     }

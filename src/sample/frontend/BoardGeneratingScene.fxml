@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import java.lang.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.BoardGenerationController">
    <children>
-        <Label layoutX="113.0" layoutY="30.0" text="Milyen pályán szeretnél majd játszani?">
-            <font>
-                <Font name="Arial" size="40" />
-            </font>
+        <Label layoutX="25.0" layoutY="40.0" text="Milyen pályán szeretnél majd játszani?">
+         <font>
+            <Font size="40.0" />
+         </font>
 
               </Label>
-        <TextArea fx:id="txtarea" layoutX="58.0" layoutY="93.0" minHeight="250" minWidth="150" prefHeight="300" prefWidth="250" />
-        <Button fx:id="renderBtn" layoutX="147.0" layoutY="418.0" onAction="#renderBoard" text="Fordít" />
-        <Button fx:id="deleteBtn" layoutX="58.0" layoutY="418.0" onAction="#deleteIt" text="Töröl" />
-        <Button fx:id="saveBtn" layoutX="238.0" layoutY="418.0" onAction="#saveBoard" text="Mentés" />
-        <Canvas fx:id="canvas" height="600" layoutX="399.0" layoutY="77.0" width="500" />
-        <Label fx:id="messageLabel" layoutX="29.0" layoutY="507.0" prefHeight="184.0" prefWidth="355.0" wrapText="true">
+        <TextArea fx:id="txtarea" layoutX="29.0" layoutY="118.0" minHeight="250" minWidth="150" prefHeight="300" prefWidth="250" />
+        <Button fx:id="renderBtn" layoutX="117.0" layoutY="449.0" onAction="#renderBoard" text="Fordít" />
+        <Button fx:id="deleteBtn" layoutX="29.0" layoutY="449.0" onAction="#deleteIt" text="Töröl" />
+        <Button fx:id="saveBtn" layoutX="207.0" layoutY="449.0" onAction="#saveBoard" text="Mentés" />
+        <Canvas fx:id="canvas" height="649.0" layoutX="323.0" layoutY="118.0" width="616.0" />
+        <Label fx:id="messageLabel" layoutX="29.0" layoutY="507.0" prefHeight="261.0" prefWidth="294.0" wrapText="true">
             <font>
                 <Font name="Arial" size="20" />
             </font>

@@ -164,7 +164,7 @@ public class GameSceneController implements Initializable {
      */
     @FXML
     public void reloadIt(){
-        mv.stop(); //TODO!!
+        mv.stop();
         txtarea.setDisable(false);
         startBtn.setDisable(false);
         clearBtn.setDisable(false);
