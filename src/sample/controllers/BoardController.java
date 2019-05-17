@@ -59,7 +59,7 @@ public class BoardController {
      */
     public void clearCanvas(){
         gc = canvas.getGraphicsContext2D();
-        gc.clearRect(0,0,600,600);
+        gc.clearRect(0,0,1000,1000);
     }
 
 
@@ -72,6 +72,9 @@ public class BoardController {
     public void reloadIt() {
         Play.getInstance().start();
 
+        myBoard = Play.getInstance().getMyBoard();
+        myRobot.setMyBoard(myBoard);
+        
         myRobot.reload();
         loadImages();
         drawRobot();
@@ -383,7 +386,7 @@ public class BoardController {
     public void drawBoard(String str) {
 
         gc = canvas.getGraphicsContext2D();
-        gc.clearRect(0, 0, 600, 600);
+        gc.clearRect(0, 0, 1000, 1000);
         String[][] images = Play.getInstance().draw(str.toUpperCase());
 
         myRobot = Play.getInstance().getMyRobot();
