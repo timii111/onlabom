@@ -57,6 +57,10 @@ public class Robot {
         this.myBoard = new Board(br);
     }
 
+    public void setMyBoard(Board b){
+        this.myBoard = b;
+    }
+
     public Board getMyBoard() {
         return myBoard;
     }
